@@ -1,0 +1,16 @@
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+cxx_compiler:
+- vs2019
+libjpeg_turbo:
+- '2'
+libopencv:
+- 4.7.0
+libpng:
+- '1.6'
+mkl_devel:
+- '2022'
+target_platform:
+- win-64

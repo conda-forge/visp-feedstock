@@ -1,0 +1,26 @@
+MACOSX_DEPLOYMENT_TARGET:
+- '10.9'
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+cxx_compiler:
+- clangxx
+cxx_compiler_version:
+- '15'
+libjpeg_turbo:
+- '2'
+libopencv:
+- 4.7.0
+libpng:
+- '1.6'
+libxml2:
+- '2.10'
+llvm_openmp:
+- '15'
+macos_machine:
+- x86_64-apple-darwin13.4.0
+mkl_devel:
+- '2022'
+target_platform:
+- osx-64
