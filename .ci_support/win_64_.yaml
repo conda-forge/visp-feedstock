@@ -5,7 +5,7 @@ channel_targets:
 cxx_compiler:
 - vs2019
 libjpeg_turbo:
-- '2'
+- 2.1.5
 libopencv:
 - 4.7.0
 libpng:
