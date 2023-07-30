@@ -21,7 +21,7 @@ source:
     - patches/0002-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch  # [win]
 
 build:
-  number: 0
+  number: 1
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
 
@@ -62,11 +62,12 @@ requirements:
 
 test:
   commands:
-    - visp-config --version
+    - visp-config --version                                                                  # [unix]
     - test -f $PREFIX/include/visp3/visp.h                                                   # [unix]
     - test -f $PREFIX/lib/cmake/visp/VISPConfig.cmake                                        # [unix]
     - test -f $PREFIX/lib/cmake/visp/VISPConfig-version.cmake                                # [unix]
     - test -f $PREFIX/lib/lib{{ name }}_core${SHLIB_EXT}                                     # [unix]
+    - call %LIBRARY_PREFIX%\bin\visp-config.bat --version                                    # [win]
     - if not exist %LIBRARY_PREFIX%\include\visp3\visp.h exit 1                              # [win]
     - if not exist %LIBRARY_PREFIX%\cmake\VISPConfig.cmake exit 1                            # [win]
     - if not exist %LIBRARY_PREFIX%\cmake\VISPConfig-version.cmake exit 1                    # [win]
