@@ -31,6 +31,12 @@ if errorlevel 1 exit 1
 cmake --build . --parallel "%CPU_COUNT%" --target install
 if errorlevel 1 exit 1
 
+:: The visp-config batch file will be used for testing the recipe, so
+:: we have to make it accessible without knowledge on the current compiler
+:: version (as VS_xxx environment variables are not accessible within the test section
+:: of the recipe)
+copy "%LIBRARY_PREFIX%\bin\visp-config-x%ARCH%-vc%VS_MAJOR%.bat" "%LIBRARY_PREFIX%\bin\visp-config.bat"
+
 :: Test
 ctest --parallel "%CPU_COUNT%"
 if errorlevel 1 exit 1
