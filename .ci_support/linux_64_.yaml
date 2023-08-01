@@ -17,7 +17,7 @@ libopencv:
 libpng:
 - '1.6'
 libxml2:
-- '2.10'
+- '2.11'
 mkl_devel:
 - '2022'
 target_platform:
