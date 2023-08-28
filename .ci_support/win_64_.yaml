@@ -7,7 +7,7 @@ cxx_compiler:
 libjpeg_turbo:
 - 2.1.5
 libopencv:
-- 4.7.0
+- 4.8.0
 libpng:
 - '1.6'
 mkl_devel:
