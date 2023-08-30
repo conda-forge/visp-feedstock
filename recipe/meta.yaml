@@ -59,6 +59,7 @@ requirements:
   run:
     - pthreads-win32                 # [win]
     - mkl
+    - eigen
 
 test:
   commands:
