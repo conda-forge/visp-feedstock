@@ -2,14 +2,6 @@
 
 set -ex
 
-# Hints OGRE to find its CMake module file
-if [[ "$target_platform" == linux* ]]; then
-    OGRE_DIR="${PREFIX}/lib/OGRE/cmake"
-elif [[ "$target_platform" == osx* ]]; then
-    OGRE_DIR="${PREFIX}/cmake"
-fi
-
-
 if [[ $target_platform == osx* ]] ; then
     # Dealing with modern C++ for Darwin in embedded catch library.
     # See https://conda-forge.org/docs/maintainer/knowledge_base.html#newer-c-features-with-old-sdk
@@ -36,8 +28,8 @@ mkdir build
 cd build
 
 cmake ${CMAKE_ARGS} .. \
-      -DOGRE_DIR=${OGRE_DIR} \
       -DCMAKE_BUILD_TYPE=Release \
+      -DUSE_OPENMP=OFF \
       -DBUILD_TESTS=ON
 
 # build
