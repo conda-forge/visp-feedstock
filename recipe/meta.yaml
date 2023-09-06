@@ -10,6 +10,11 @@ source:
   url: https://github.com/lagadic/visp/archive/refs/tags/v{{ version }}.tar.gz
   sha256: 494a648b2570da2a200ba326ed61a14e785eb9ee08ef12d3ad178b2f384d3d30
   patches:
+    # Avoid propagation of system dependencies such as libm (part of glibc)
+    # otherwise, paths to the build environment in the installed package won't 
+    # be updated from the info/has_prefix file.
+    # Fixed in next release: https://github.com/lagadic/visp/pull/1226
+    - patches/0001-Set-VISP_LINKER_LIBS-as-private.patch
     # Current version of this package do not enable AVX support. The Windows build uses
     # the Clang-cl compiler wich fails to build the embedded Simd library on AVX instructions
     # even when AVX flags are not on for some unknown reason, so we have to force
