@@ -26,7 +26,7 @@ source:
     - patches/0003-Fix-cmake-usage-for-pthreads-and-openmp.patch
 
 build:
-  number: 4
+  number: 5
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
 
