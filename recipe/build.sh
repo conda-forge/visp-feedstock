@@ -29,7 +29,6 @@ cd build
 
 cmake ${CMAKE_ARGS} .. \
       -DCMAKE_BUILD_TYPE=Release \
-      -DUSE_OPENMP=OFF \
       -DBUILD_TESTS=ON
 
 # build
