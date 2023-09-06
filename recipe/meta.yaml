@@ -55,7 +55,6 @@ requirements:
     - libopenblas                    # [osx]
     - llvm-openmp                    # [win or osx]
     - openmp                         # [win]
-    - pthreads-win32                 # [win]
     - libgomp                        # [linux]
     - libopencv
     - eigen
