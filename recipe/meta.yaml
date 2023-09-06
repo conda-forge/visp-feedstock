@@ -20,6 +20,10 @@ source:
     # even when AVX flags are not on for some unknown reason, so we have to force
     # disabling AVX support at the Simd library level.
     - patches/0002-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch  # [win]
+    # Fix deprecated cmake for pthread and openmp, which was breaking
+    # the conda package if visp used as a 3rd party lib on linux
+    # Fixed in next release: https://github.com/lagadic/visp/pull/1227
+    - patches/0003-Fix-cmake-usage-for-pthreads-and-openmp.patch
 
 build:
   number: 4
