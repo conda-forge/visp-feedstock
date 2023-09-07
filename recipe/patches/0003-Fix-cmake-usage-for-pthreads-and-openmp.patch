@@ -1,0 +1,119 @@
+From aad603d2acaeaa7dbc980180ad2cd4dfe575688d Mon Sep 17 00:00:00 2001
+From: Olivier Roussel <olivier.roussel@inria.fr>
+Date: Wed, 6 Sep 2023 11:16:48 +0200
+Subject: [PATCH] Fix cmake usage for pthreads and openmp.
+
+---
+ CMakeLists.txt                       |  9 +++------
+ cmake/AddExtraCompilationFlags.cmake |  6 ++++++
+ modules/core/CMakeLists.txt          | 19 ++++++++++++++++---
+ modules/robot/CMakeLists.txt         | 10 ++++++----
+ 4 files changed, 31 insertions(+), 13 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 18c9a24d5..4707f2332 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -569,14 +569,11 @@ if(SOQT_FOUND) # SoQt < 1.6.0 that depends on Qt4 was found. We need an explicit
+   VP_OPTION(USE_QT        Qt          ""    "Include Coin/SoQt/Qt support" "" ON  IF USE_SOQT AND NOT WINRT AND NOT IOS)
+ endif()
+ VP_OPTION(USE_SOXT        SOXT        ""    "Include Coin/SoXt support"    "" OFF IF USE_COIN3D AND NOT WINRT AND NOT IOS)
+-if (ANDROID)
+-  VP_OPTION(USE_PTHREAD     Threads     ""    "Include pthread support"      "" ON)
+-else()
+-  VP_OPTION(USE_PTHREAD     PTHREAD     ""    "Include pthread support"      "" ON)
+-endif()
++set(THREADS_PREFER_PTHREAD_FLAG ON)
++VP_OPTION(USE_PTHREAD     Threads     ""    "Include pthread support"      "" ON)
+ # We need threads with c++11
+ if((VISP_CXX_STANDARD GREATER VISP_CXX_STANDARD_98) AND NOT USE_PTHREAD)
+-  if(Threads_FOUND OR PTHREAD_FOUND)
++  if(Threads_FOUND)
+     message(WARNING "We need threads. Turn USE_PTHREAD=ON.")
+     unset(USE_PTHREAD)
+     set(USE_PTHREAD ON CACHE BOOL "Include pthread support" FORCE)
+diff --git a/cmake/AddExtraCompilationFlags.cmake b/cmake/AddExtraCompilationFlags.cmake
+index 0924064d0..e983aaad4 100644
+--- a/cmake/AddExtraCompilationFlags.cmake
++++ b/cmake/AddExtraCompilationFlags.cmake
+@@ -114,6 +114,12 @@ if(USE_OPENMP)
+   add_extra_compiler_option("${OpenMP_CXX_FLAGS}")
+ endif()
+ 
++if(USE_PTHREAD)
++  if(THREADS_HAVE_PTHREAD_ARG)
++    add_extra_compiler_option("-pthread")
++  endif()
++endif()
++
+ if((VISP_CXX_STANDARD EQUAL VISP_CXX_STANDARD_11) AND CXX11_CXX_FLAGS)
+   add_extra_compiler_option("${CXX11_CXX_FLAGS}")
+ elseif((VISP_CXX_STANDARD EQUAL VISP_CXX_STANDARD_14) AND CXX14_CXX_FLAGS)
+diff --git a/modules/core/CMakeLists.txt b/modules/core/CMakeLists.txt
+index 224743c6e..a4d599739 100644
+--- a/modules/core/CMakeLists.txt
++++ b/modules/core/CMakeLists.txt
+@@ -225,8 +225,9 @@ if(USE_XML2)
+   list(APPEND opt_libs ${XML2_LIBRARIES})
+ endif()
+ if(USE_PTHREAD)
+-  list(APPEND opt_incs ${PTHREAD_INCLUDE_DIRS})
+-  list(APPEND opt_libs ${PTHREAD_LIBRARIES})
++  if(CMAKE_THREAD_LIBS_INIT)
++    list(APPEND opt_libs "${CMAKE_THREAD_LIBS_INIT}")
++  endif()
+ endif()
+ if(USE_ZLIB)
+   list(APPEND opt_incs ${ZLIB_INCLUDE_DIRS})
+@@ -234,7 +235,19 @@ if(USE_ZLIB)
+ endif()
+ if(USE_OPENMP)
+   list(APPEND opt_incs ${OpenMP_CXX_INCLUDE_DIRS})
+-  list(APPEND opt_libs ${OpenMP_CXX_LIBRARIES})
++  # Because there is an explicit link to libpthread location that breaks visp conda package usage on linux
++  # we cannot use OpenMP_CXX_LIBRARIES that contains /usr/lib/gcc/x86_64-linux-gnu/11/libgomp.so;/usr/lib/x86_64-linux-gnu/libpthread.a
++  # by adding:
++  # list(APPEND opt_libs ${OpenMP_CXX_LIBRARIES})
++  foreach(lib_ ${OpenMP_CXX_LIB_NAMES})
++    if("x${lib_}" STREQUAL "xpthread")
++      if(CMAKE_THREAD_LIBS_INIT)
++        list(APPEND opt_libs "${CMAKE_THREAD_LIBS_INIT}")
++      endif()
++    else()
++      list(APPEND opt_libs ${OpenMP_${lib_}_LIBRARY})
++    endif()
++  endforeach()
+ endif()
+ 
+ # pugixml is always enabled to provide default XML I/O capabilities
+diff --git a/modules/robot/CMakeLists.txt b/modules/robot/CMakeLists.txt
+index 00f096995..5291210f7 100644
+--- a/modules/robot/CMakeLists.txt
++++ b/modules/robot/CMakeLists.txt
+@@ -53,8 +53,9 @@ if(USE_VIRTUOSE)
+   list(APPEND opt_libs ${VIRTUOSE_LIBRARIES})
+ 
+   if(USE_PTHREAD AND RT_FOUND AND DL_FOUND)
+-    list(APPEND opt_incs ${PTHREAD_INCLUDE_DIRS})
+-    list(APPEND opt_libs ${PTHREAD_LIBRARIES})
++    if(CMAKE_THREAD_LIBS_INIT)
++      list(APPEND opt_libs "${CMAKE_THREAD_LIBS_INIT}")
++    endif()
+     list(APPEND opt_libs ${RT_LIBRARIES})
+     list(APPEND opt_libs ${DL_LIBRARIES})
+   endif()
+@@ -112,8 +113,9 @@ if(USE_ARIA AND UNIX AND USE_PTHREAD AND RT_FOUND AND DL_FOUND)
+   # Under Unix we need Aria, pthread, dl and rt libraries
+   list(APPEND opt_incs ${ARIA_INCLUDE_DIRS})
+   list(APPEND opt_libs ${ARIA_LIBRARIES})
+-  list(APPEND opt_incs ${PTHREAD_INCLUDE_DIRS})
+-  list(APPEND opt_libs ${PTHREAD_LIBRARIES})
++  if(CMAKE_THREAD_LIBS_INIT)
++    list(APPEND opt_libs "${CMAKE_THREAD_LIBS_INIT}")
++  endif()
+   list(APPEND opt_libs ${RT_LIBRARIES})
+   list(APPEND opt_libs ${DL_LIBRARIES})
+ elseif(USE_ARIA AND NOT UNIX)
+-- 
+2.42.0
+
