@@ -1,3 +1,5 @@
+c_compiler:
+- vs2019
 channel_sources:
 - conda-forge
 channel_targets:
@@ -7,7 +9,7 @@ cxx_compiler:
 libjpeg_turbo:
 - 2.1.5
 libopencv:
-- 4.8.0
+- 4.8.1
 libpng:
 - '1.6'
 mkl_devel:
