@@ -1,5 +1,5 @@
 {% set name = "visp" %}
-{% set version = "3.5.0" %}
+{% set version = "3.6.0" %}
 {% set major_minor_version = version.split('.')[0] + version.split('.')[1] + version.split('.')[2] %}
 
 package:
@@ -8,25 +8,16 @@ package:
 
 source:
   url: https://github.com/lagadic/visp/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 494a648b2570da2a200ba326ed61a14e785eb9ee08ef12d3ad178b2f384d3d30
+  sha256: eec93f56b89fd7c0d472b019e01c3fe03a09eda47f3903c38dc53a27cbfae532
   patches:
-    # Avoid propagation of system dependencies such as libm (part of glibc)
-    # otherwise, paths to the build environment in the installed package won't 
-    # be updated from the info/has_prefix file.
-    # Fixed in next release: https://github.com/lagadic/visp/pull/1226
-    - patches/0001-Set-VISP_LINKER_LIBS-as-private.patch  # [unix]
     # Current version of this package do not enable AVX support. The Windows build uses
     # the Clang-cl compiler wich fails to build the embedded Simd library on AVX instructions
     # even when AVX flags are not on for some unknown reason, so we have to force
     # disabling AVX support at the Simd library level.
     - patches/0002-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch  # [win]
-    # Fix deprecated cmake for pthread and openmp, which was breaking
-    # the conda package if visp used as a 3rd party lib on linux
-    # Fixed in next release: https://github.com/lagadic/visp/pull/1227
-    - patches/0003-Fix-cmake-usage-for-pthreads-and-openmp.patch  # [unix]
 
 build:
-  number: 5
+  number: 0
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
 
@@ -65,6 +56,7 @@ requirements:
 
   run:
     - pthreads-win32                 # [win]
+    - libcxx                         # [osx]
     - mkl
     - eigen
 

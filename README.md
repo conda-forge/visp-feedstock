@@ -11,7 +11,7 @@ Summary: A cross-platform library for prototyping and developing applications us
 
 Development: https://github.com/lagadic/visp
 
-Documentation: https://visp-doc.inria.fr/doxygen/visp-3.5.0/
+Documentation: https://visp-doc.inria.fr/doxygen/visp-3.6.0/
 
 Current build status
 ====================
