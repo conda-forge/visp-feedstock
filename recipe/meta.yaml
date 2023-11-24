@@ -42,7 +42,6 @@ requirements:
     - libxml2                        # [unix]
     - libdc1394 >=2.2.6              # [unix]
     - librealsense                   # [unix]
-    - _openmp_mutex                  # [linux]
     - libopenblas                    # [osx]
     - llvm-openmp                    # [win or osx]
     - openmp                         # [win]
