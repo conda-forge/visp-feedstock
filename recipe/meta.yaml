@@ -54,6 +54,7 @@ requirements:
     - mkl-devel
 
   run:
+    - libgomp                        # [linux]
     - pthreads-win32                 # [win]
     - libcxx                         # [osx]
     - mkl
