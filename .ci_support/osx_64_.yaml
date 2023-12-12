@@ -19,7 +19,7 @@ libopencv:
 libpng:
 - '1.6'
 libxml2:
-- '2.11'
+- '2.12'
 llvm_openmp:
 - '16'
 macos_machine:
