@@ -36,13 +36,14 @@ requirements:
     - {{ cdt('libxxf86vm') }}        # [linux]
     - {{ cdt('libxext') }}           # [linux]
     - libgomp                        # [linux]
+    - blas-devel                     # [unix]
   host:
     - xorg-libx11                    # [unix]
     - xorg-libxfixes                 # [unix]
     - libxml2                        # [unix]
     - libdc1394 >=2.2.6              # [unix]
     - librealsense                   # [unix]
-    - libopenblas                    # [osx]
+    - blas-devel                     # [unix]
     - llvm-openmp                    # [win or osx]
     - openmp                         # [win]
     - pthreads-win32                 # [win]
@@ -51,13 +52,14 @@ requirements:
     - eigen
     - libjpeg-turbo
     - libpng
-    - mkl-devel
+    - mkl-devel                      # [win]
 
   run:
     - libgomp                        # [linux]
     - pthreads-win32                 # [win]
     - libcxx                         # [osx]
-    - mkl
+    - mkl                            # [win]
+    - openblas                       # [unix]
     - eigen
 
 test:
