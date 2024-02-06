@@ -59,7 +59,7 @@ requirements:
     - pthreads-win32                 # [win]
     - libcxx                         # [osx]
     - mkl                            # [win]
-    - openblas                       # [unix]
+    - libopenblas                    # [unix]
     - eigen
 
 test:
