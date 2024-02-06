@@ -17,6 +17,8 @@ source:
     # disabling AVX support at the Simd library level.
     - if: win
       then: patches/0002-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch
+    # Disable Neon on Simd lib for arm architectures
+    - patches/0001-Disable-Neon-on-simdlib-for-clang-on-ARM.patch
 
 build:
   number: ${{ build_num }}
