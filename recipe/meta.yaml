@@ -42,7 +42,6 @@ requirements:
     - libxml2                        # [unix]
     - libdc1394 >=2.2.6              # [unix]
     - librealsense                   # [unix]
-    - libopenblas                    # [osx]
     - llvm-openmp                    # [win or osx]
     - openmp                         # [win]
     - pthreads-win32                 # [win]
@@ -51,13 +50,14 @@ requirements:
     - eigen
     - libjpeg-turbo
     - libpng
-    - mkl-devel
+    - libblas
 
   run:
     - libgomp                        # [linux]
     - pthreads-win32                 # [win]
     - libcxx                         # [osx]
-    - mkl
+    - openblas   # [not win]
+    - mkl        # [win]
     - eigen
 
 test:
