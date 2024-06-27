@@ -15,9 +15,10 @@ source:
     # even when AVX flags are not on for some unknown reason, so we have to force
     # disabling AVX support at the Simd library level.
     - patches/0002-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch  # [win]
+    - patches/0001-Disable-Neon-on-simdlib-for-clang-on-ARM.patch
 
 build:
-  number: 4
+  number: 5
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
 
@@ -36,13 +37,14 @@ requirements:
     - {{ cdt('libxxf86vm') }}        # [linux]
     - {{ cdt('libxext') }}           # [linux]
     - libgomp                        # [linux]
+    - blas-devel                     # [unix]
   host:
     - xorg-libx11                    # [unix]
     - xorg-libxfixes                 # [unix]
     - libxml2                        # [unix]
     - libdc1394 >=2.2.6              # [unix]
     - librealsense                   # [unix]
-    - libopenblas                    # [osx]
+    - blas-devel                     # [unix]
     - llvm-openmp                    # [win or osx]
     - openmp                         # [win]
     - pthreads-win32                 # [win]
@@ -51,13 +53,14 @@ requirements:
     - eigen
     - libjpeg-turbo
     - libpng
-    - mkl-devel
+    - mkl-devel                      # [win]
 
   run:
     - libgomp                        # [linux]
     - pthreads-win32                 # [win]
     - libcxx                         # [osx]
-    - mkl
+    - mkl                            # [win]
+    - libopenblas                    # [unix]
     - eigen
 
 test:
