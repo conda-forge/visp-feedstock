@@ -38,4 +38,4 @@ cmake --build . --parallel ${CPU_COUNT}
 cmake --build . --parallel ${CPU_COUNT} --target install
 
 # test
-ctest --parallel ${CPU_COUNT}
+ctest -V -VV
