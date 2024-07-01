@@ -30,6 +30,7 @@ requirements:
     - clang                          # [win]
     - ninja                          # [win]
     - {{ cdt('mesa-libgl-devel') }}  # [linux]
+    - {{ cdt('mesa-libegl-devel') }} # [linux]
     - {{ cdt('mesa-dri-drivers') }}  # [linux]
     - {{ cdt('libselinux') }}        # [linux]
     - {{ cdt('libxdamage') }}        # [linux]
@@ -37,11 +38,12 @@ requirements:
     - {{ cdt('libxext') }}           # [linux]
     - libgomp                        # [linux]
   host:
+    - {{ cdt('mesa-libegl-devel') }} # [linux]
     - xorg-libx11                    # [unix]
     - xorg-libxfixes                 # [unix]
     - libxml2                        # [unix]
     - libdc1394 >=2.2.6              # [unix]
-    - librealsense                   # [unix]
+    #- librealsense                   # [unix]
     - libopenblas                    # [osx]
     - llvm-openmp                    # [win or osx]
     - openmp                         # [win]
@@ -54,6 +56,7 @@ requirements:
     - mkl-devel
 
   run:
+    - {{ cdt('mesa-libegl-devel') }} # [linux]
     - libgomp                        # [linux]
     - pthreads-win32                 # [win]
     - libcxx                         # [osx]
