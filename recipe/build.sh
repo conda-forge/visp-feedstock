@@ -24,6 +24,11 @@ if [[ $target_platform == osx* ]] ; then
     set -u
 fi
 
+echo "--------------------------------------"
+find ${PREFIX} -iname "*libegl*.so*"
+find ${PREFIX} -iname "*libOpenGL*.so*"
+echo "--------------------------------------"
+
 mkdir build
 cd build
 
@@ -36,6 +41,14 @@ cmake --build . --parallel ${CPU_COUNT}
 
 # install 
 cmake --build . --parallel ${CPU_COUNT} --target install
+
+echo "--------------------------------------"
+echo ${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=${BUILD_PREFIX}/x86_64-conda-linux-gnu/sysroot/usr/lib64
+echo ${LD_LIBRARY_PATH}
+echo "--------------------------------------"
+ldd modules/core/testPolygon
+echo "--------------------------------------"
 
 # test
 ctest -V -VV
