@@ -4,3 +4,6 @@ libselinux
 libXdamage
 libXxf86vm
 libXext
+libglvnd-egl
+libglvnd-glx
+libglvnd-opengl

@@ -17,7 +17,7 @@ source:
     - patches/0002-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch  # [win]
 
 build:
-  number: 4
+  number: 5
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
 
@@ -25,6 +25,7 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - {{ stdlib('c') }}
     - cmake
     - make                           # [not win]
     - clang                          # [win]
