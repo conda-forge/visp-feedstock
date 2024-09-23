@@ -15,6 +15,6 @@ libopencv:
 libpng:
 - '1.6'
 mkl_devel:
-- '2023'
+- '2024'
 target_platform:
 - win-64
