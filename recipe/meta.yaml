@@ -37,6 +37,7 @@ requirements:
     - {{ cdt('libxxf86vm') }}        # [linux]
     - {{ cdt('libxext') }}           # [linux]
     - libgomp                        # [linux]
+    - llvm-openmp                    # [osx]
   host:
     - xorg-libx11                    # [unix]
     - xorg-libxfixes                 # [unix]
@@ -44,8 +45,6 @@ requirements:
     - libdc1394 >=2.2.6              # [unix]
     - librealsense                   # [unix]
     - libopenblas                    # [osx]
-    - llvm-openmp                    # [osx]
-    - openmp                         # [win]
     - pthreads-win32                 # [win]
     - libgomp                        # [linux]
     - libopencv
