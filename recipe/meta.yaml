@@ -44,7 +44,7 @@ requirements:
     - libdc1394 >=2.2.6              # [unix]
     - librealsense                   # [unix]
     - libopenblas                    # [osx]
-    - llvm-openmp                    # [win or osx]
+    - llvm-openmp                    # [osx]
     - openmp                         # [win]
     - pthreads-win32                 # [win]
     - libgomp                        # [linux]
