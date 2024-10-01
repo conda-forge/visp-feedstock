@@ -51,13 +51,13 @@ requirements:
     - eigen
     - libjpeg-turbo
     - libpng
-    - mkl-devel
+    - mkl-devel                      # [linux]
 
   run:
     - libgomp                        # [linux]
     - pthreads-win32                 # [win]
     - libcxx                         # [osx]
-    - mkl
+    - mkl                            # [linux]
     - eigen
 
 test:
