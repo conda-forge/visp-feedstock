@@ -44,20 +44,21 @@ requirements:
     - libxml2                        # [unix]
     - libdc1394 >=2.2.6              # [unix]
     - librealsense                   # [unix]
-    - libopenblas                    # [osx]
     - pthreads-win32                 # [win]
     - libgomp                        # [linux]
     - libopencv
     - eigen
     - libjpeg-turbo
     - libpng
-    - mkl-devel                      # [linux]
+    - libblas
+    - libcblas
+    - liblapack
+    - liblapacke
 
   run:
     - libgomp                        # [linux]
     - pthreads-win32                 # [win]
     - libcxx                         # [osx]
-    - mkl                            # [linux]
     - eigen
 
 test:
