@@ -20,7 +20,7 @@ source:
       then: patches/0002-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch
 
 build:
-  number: 5
+  number: 6
 
 requirements:
   build:
