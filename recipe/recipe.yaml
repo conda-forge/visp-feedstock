@@ -1,0 +1,115 @@
+schema_version: 1
+
+context:
+  name: visp
+  version: 3.6.0
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://github.com/lagadic/visp/archive/refs/tags/v${{ version }}.tar.gz
+  sha256: eec93f56b89fd7c0d472b019e01c3fe03a09eda47f3903c38dc53a27cbfae532
+  patches:
+    # Current version of this package do not enable AVX support. The Windows build uses
+    # the Clang-cl compiler wich fails to build the embedded Simd library on AVX instructions
+    # even when AVX flags are not on for some unknown reason, so we have to force
+    # disabling AVX support at the Simd library level.
+    - if: win
+      then: patches/0002-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch
+
+build:
+  number: 5
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+    - ${{ compiler('cxx') }}
+    - ${{ stdlib('c') }}
+    - cmake
+    - if: not win
+      then: 
+        - make
+    - if: win
+      then: 
+        - clang
+        - ninja
+    - if: linux
+      then: 
+        - ${{ cdt('mesa-libgl-devel') }}
+        - ${{ cdt('mesa-dri-drivers') }}
+        - ${{ cdt('libselinux') }}
+        - ${{ cdt('libxdamage') }}
+        - ${{ cdt('libxxf86vm') }}
+        - ${{ cdt('libxext') }}
+        - libgomp
+  host:
+    - if: unix
+      then:
+        - xorg-libx11
+        - libxml2
+        - libdc1394 >=2.2.6
+        - librealsense
+    - if: osx
+      then:
+        - libopenblas
+    - if: win or osx
+      then:
+        - llvm-openmp
+    - if: win
+      then:
+        - openmp
+        - pthreads-win32
+    - if: linux
+      then:
+        - libgomp
+    - libopencv
+    - eigen
+    - libjpeg-turbo
+    - libpng
+    - mkl-devel
+  run:
+    - if: win
+      then: pthreads-win32
+    - if: osx
+      then: libcxx
+    - mkl
+    - eigen
+  run_exports:
+    - ${{ pin_subpackage(name, upper_bound='x.x') }}
+
+tests:
+  - package_contents:
+      include: 
+        - visp3/visp.h
+      lib:
+        # win lib tests are disabled for now as we need to be able to use some jinja 
+        # variables in the tests section 
+        # https://github.com/prefix-dev/rattler-build/issues/1068
+        - if: unix
+          then:
+            - visp_core
+      files: 
+        - ${{ "Library/" if win }}lib/cmake/${{ "visp/" if unix }}VISPConfig.cmake
+        - ${{ "Library/" if win }}lib/cmake/${{ "visp/" if unix }}VISPConfig-version.cmake
+
+  - script:
+      - if: unix
+        then: visp-config --version
+      - if: win
+        then: call %LIBRARY_PREFIX%\bin\visp-config.bat --version
+
+about:
+  summary: A cross-platform library for prototyping and developing applications using visual tracking and visual servoing technic.
+  license: GPL-2.0-only
+  license_file: LICENSE.txt
+  homepage: https://visp.inria.fr/
+  repository: https://github.com/lagadic/visp
+  documentation: https://visp-doc.inria.fr/doxygen/visp-${{ version }}/
+
+extra:
+  recipe-maintainers:
+    - olivier-roussel
+    - fspindle
+
