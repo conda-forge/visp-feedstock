@@ -89,8 +89,8 @@ tests:
           then:
             - visp_core
       files: 
-        - ${{ "Library/" if win }}lib/cmake/${{ "visp/" if unix }}VISPConfig.cmake
-        - ${{ "Library/" if win }}lib/cmake/${{ "visp/" if unix }}VISPConfig-version.cmake
+        - ${{ "Library" if win else lib}}/cmake/${{ "visp/" if unix }}VISPConfig.cmake
+        - ${{ "Library" if win else lib}}/cmake/${{ "visp/" if unix }}VISPConfig-version.cmake
 
   - script:
       - if: unix
