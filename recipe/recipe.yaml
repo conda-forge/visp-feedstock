@@ -86,16 +86,13 @@ tests:
       files: 
         - ${{ "Library" if win else "lib" }}/cmake/${{ "visp/" if unix }}VISPConfig.cmake
         - ${{ "Library" if win else "lib" }}/cmake/${{ "visp/" if unix }}VISPConfig-version.cmake
-        # debugging include on win
-        - if: win
-          then:
-            - Library/include/visp3/visp.h
 
   - script:
       - if: unix
         then: visp-config --version
-      - if: win
-        then: call %LIBRARY_PREFIX%\bin\visp-config.bat --version
+      # Broken with rattler-build
+      # - if: win
+      #   then: call %LIBRARY_PREFIX%\bin\visp-config.bat --version
 
 about:
   summary: A cross-platform library for prototyping and developing applications using visual tracking and visual servoing technic.
