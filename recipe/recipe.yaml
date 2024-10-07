@@ -77,12 +77,14 @@ tests:
       include: 
         - visp3/visp.h
       lib:
-        # win lib tests are disabled for now as we need to be able to use some jinja 
-        # variables in the tests section 
+        # win libs contains version specific strings that are not available for now from jinja
         # https://github.com/prefix-dev/rattler-build/issues/1068
         - if: unix
           then:
             - visp_core
+          else:
+            - visp_core*
+
       files: 
         - ${{ "Library" if win else "lib" }}/cmake/${{ "visp/" if unix }}VISPConfig.cmake
         - ${{ "Library" if win else "lib" }}/cmake/${{ "visp/" if unix }}VISPConfig-version.cmake
@@ -91,8 +93,10 @@ tests:
       - if: unix
         then: visp-config --version
       # Broken with rattler-build
-      # - if: win
-      #   then: call %LIBRARY_PREFIX%\bin\visp-config.bat --version
+      - if: win
+        then:
+          - dir
+          - call .\bin\visp-config.bat --version
 
 about:
   summary: A cross-platform library for prototyping and developing applications using visual tracking and visual servoing technic.
