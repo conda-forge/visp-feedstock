@@ -41,7 +41,6 @@ requirements:
         - ${{ cdt('libxdamage') }}
         - ${{ cdt('libxxf86vm') }}
         - ${{ cdt('libxext') }}
-        - libgomp
   host:
     - if: unix
       then:
@@ -57,11 +56,7 @@ requirements:
         - llvm-openmp
     - if: win
       then:
-        - openmp
         - pthreads-win32
-    - if: linux
-      then:
-        - libgomp
     - libopencv
     - eigen
     - libjpeg-turbo
