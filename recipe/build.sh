@@ -8,9 +8,9 @@ if [[ $target_platform == osx* ]] ; then
     CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
 
     # Workaround for https://github.com/conda-forge/tk-feedstock/issues/15
-    export X11_PATH=$PREFIX/include/X11
-    export X11_ALIAS_PATH=$PREFIX/include/tk_X11
-    mv $X11_PATH $X11_ALIAS_PATH
+    # export X11_PATH=$PREFIX/include/X11
+    # export X11_ALIAS_PATH=$PREFIX/include/tk_X11
+    # mv $X11_PATH $X11_ALIAS_PATH
 fi
 
 mkdir build
@@ -31,5 +31,5 @@ ctest --parallel ${CPU_COUNT}
 
 if [[ $target_platform == osx* ]] ; then
     # Restore the fix
-    mv $X11_ALIAS_PATH $X11_PATH
+    # mv $X11_ALIAS_PATH $X11_PATH
 fi
