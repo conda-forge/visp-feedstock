@@ -96,7 +96,7 @@ tests:
       - if: win
         then:
           - dir
-          - call .\bin\visp-config.bat --version
+          - call Library\bin\visp-config.bat --version
 
 about:
   summary: A cross-platform library for prototyping and developing applications using visual tracking and visual servoing technic.
