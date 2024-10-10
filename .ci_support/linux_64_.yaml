@@ -18,16 +18,22 @@ cxx_compiler_version:
 - '13'
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
+libblas:
+- 3.9 *netlib
+libcblas:
+- 3.9 *netlib
 libjpeg_turbo:
 - '3'
+liblapack:
+- 3.9 *netlib
+liblapacke:
+- 3.9 *netlib
 libopencv:
 - 4.10.0
 libpng:
 - '1.6'
 libxml2:
 - '2'
-mkl_devel:
-- '2023'
 target_platform:
 - linux-64
 zip_keys:
