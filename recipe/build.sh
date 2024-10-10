@@ -11,6 +11,7 @@ if [[ $target_platform == osx* ]] ; then
     # Taken from https://github.com/conda-forge/ambertools-feedstock/blob/2ccbcde9a96c90da31ed199e64c33a4e5f64695c/recipe/build.sh#L40-L51
     #  In MacOS, `tk` ships some X11 headers that interfere with the X11 libraries
     #  1) delete clobbered X11 headers (mix of tk and xorg)
+
     rm -rf ${PREFIX}/include/X11/{DECkeysym,HPkeysym,Sunkeysym,X,XF86keysym,Xatom,Xfuncproto}.h
     rm -rf ${PREFIX}/include/X11/{ap_keysym,keysym,keysymdef,Xlib,Xutil,cursorfont}.h
     #  2) Reinstall Xorg dependencies
@@ -18,6 +19,10 @@ if [[ $target_platform == osx* ]] ; then
     set +u
     mv ${BUILD_PREFIX}/etc/conda/{activate.d,activate.d.bak}
     mv ${BUILD_PREFIX}/etc/conda/{deactivate.d,deactivate.d.bak}
+    # Using rattler-build does not keep the conda-meta/history file,
+    # making impossible to perform the conda install command that follows.
+    # We fake it by creating an empty conda-meta/history.
+    touch ${PREFIX}/conda-meta/history
     conda install --yes --no-deps --force-reinstall -p ${PREFIX} xorg-xproto xorg-libx11
     mv ${BUILD_PREFIX}/etc/conda/{activate.d.bak,activate.d}
     mv ${BUILD_PREFIX}/etc/conda/{deactivate.d.bak,deactivate.d}
