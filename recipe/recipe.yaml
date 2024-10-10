@@ -48,9 +48,6 @@ requirements:
         - libxml2
         - libdc1394 >=2.2.6
         - librealsense
-    - if: osx
-      then:
-        - libopenblas
     - if: win or osx
       then:
         - llvm-openmp
@@ -61,13 +58,15 @@ requirements:
     - eigen
     - libjpeg-turbo
     - libpng
-    - mkl-devel
+    - libblas
+    - libcblas
+    - liblapack
+    - liblapacke
   run:
     - if: win
       then: pthreads-win32
     - if: osx
       then: libcxx
-    - mkl
     - eigen
   run_exports:
     - ${{ pin_subpackage(name, upper_bound='x.x') }}
