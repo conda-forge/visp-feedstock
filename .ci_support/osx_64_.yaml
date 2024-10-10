@@ -18,8 +18,16 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '17'
+libblas:
+- 3.9 *netlib
+libcblas:
+- 3.9 *netlib
 libjpeg_turbo:
 - '3'
+liblapack:
+- 3.9 *netlib
+liblapacke:
+- 3.9 *netlib
 libopencv:
 - 4.10.0
 libpng:
@@ -30,8 +38,6 @@ llvm_openmp:
 - '17'
 macos_machine:
 - x86_64-apple-darwin13.4.0
-mkl_devel:
-- '2023'
 target_platform:
 - osx-64
 zip_keys:
