@@ -34,6 +34,7 @@ cd build
 
 cmake ${CMAKE_ARGS} .. \
       -DCMAKE_BUILD_TYPE=Release \
+      -DVISP_PYTHON_SKIP_DETECTION=ON \
       -DBUILD_TESTS=ON
 
 # build
