@@ -42,12 +42,6 @@ requirements:
         - ${{ cdt('libxdamage') }}
         - ${{ cdt('libxxf86vm') }}
         - ${{ cdt('libxext') }}
-    - if: build_platform != target_platform
-      then:
-        - python
-        - cross-python_${{ target_platform }}
-        - cython
-        - numpy
   host:
     - if: unix
       then:
