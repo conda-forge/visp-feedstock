@@ -11,14 +11,17 @@ source:
   url: https://github.com/lagadic/visp/archive/refs/tags/v${{ version }}.tar.gz
   sha256: eec93f56b89fd7c0d472b019e01c3fe03a09eda47f3903c38dc53a27cbfae532
   patches:
+    # Disable Neon on Simd lib for arm architectures
+    - patches/0001-Disable-Neon-on-simdlib-for-clang-on-ARM.patch
     # Current version of this package do not enable AVX support. The Windows build uses
     # the Clang-cl compiler wich fails to build the embedded Simd library on AVX instructions
     # even when AVX flags are not on for some unknown reason, so we have to force
     # disabling AVX support at the Simd library level.
     - if: win
       then: patches/0002-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch
-    # Disable Neon on Simd lib for arm architectures
-    - patches/0001-Disable-Neon-on-simdlib-for-clang-on-ARM.patch
+    # Fix MBT tracker on arm64 archs for recent opencv version.
+    # Should be fixed in release 3.7.0.
+    - patches/0003-Update-usage-of-operators-with-the-new-Universal-Int.patch
 
 build:
   number: ${{ build_num }}
