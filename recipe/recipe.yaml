@@ -32,9 +32,13 @@ requirements:
     - ${{ compiler('cxx') }}
     - ${{ stdlib('c') }}
     - cmake
-    - ninja
-    - if: win
+    - if: linux and aarch64
       then: 
+        - make
+      else:
+        - ninja
+    - if: win
+      then:
         - clang
     - if: linux
       then: 
