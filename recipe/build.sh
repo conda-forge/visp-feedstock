@@ -31,6 +31,7 @@ mkdir build
 cd build
 
 cmake ${CMAKE_ARGS} .. \
+      -G Ninja \
       -DCMAKE_BUILD_TYPE=Release \
       -DVISP_PYTHON_SKIP_DETECTION=ON \
       -DBUILD_TESTS=ON
