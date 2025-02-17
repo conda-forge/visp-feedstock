@@ -24,7 +24,7 @@ source:
     - patches/0003-Update-usage-of-operators-with-the-new-Universal-Int.patch
 
 build:
-  number: ${{ build_num }}
+  number: 1
 
 requirements:
   build:
@@ -33,14 +33,14 @@ requirements:
     - ${{ stdlib('c') }}
     - cmake
     - if: not win
-      then: 
+      then:
         - make
     - if: win
-      then: 
+      then:
         - clang
         - ninja
     - if: linux
-      then: 
+      then:
         - ${{ cdt('mesa-libgl-devel') }}
         - ${{ cdt('mesa-dri-drivers') }}
         - ${{ cdt('libselinux') }}
@@ -79,7 +79,7 @@ requirements:
 
 tests:
   - package_contents:
-      include: 
+      include:
         - visp3/visp.h
       lib:
         # win libs contains version specific strings that are not available for now from jinja
@@ -90,7 +90,7 @@ tests:
           else:
             - visp_core*
 
-      files: 
+      files:
         - ${{ "Library" if win else "lib" }}/cmake/${{ "visp/" if unix }}VISPConfig.cmake
         - ${{ "Library" if win else "lib" }}/cmake/${{ "visp/" if unix }}VISPConfig-version.cmake
 
