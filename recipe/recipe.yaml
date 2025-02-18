@@ -51,6 +51,8 @@ requirements:
     - if: unix
       then:
         - xorg-libx11
+        - xorg-libxfixes
+        - xorg-xorgproto
         - libxml2
         - libdc1394 >=2.2.6
         - librealsense
