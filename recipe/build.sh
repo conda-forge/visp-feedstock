@@ -25,6 +25,12 @@ if [[ $target_platform == osx* ]] ; then
     CONDA_SUBDIR="$target_platform" conda install --yes --no-deps --force-reinstall -p ${PREFIX} xorg-libx11 xorg-xproto
     mv ${BUILD_PREFIX}/etc/conda/{activate.d.bak,activate.d}
     mv ${BUILD_PREFIX}/etc/conda/{deactivate.d.bak,deactivate.d}
+    # debugging
+    echo "-----------------------"
+    ls -l ${PREFIX}/include/X11/
+    echo "-----------------------"
+    cat ${PREFIX}/include/X11/Xlib.h
+    echo "-----------------------"
 fi
 
 mkdir build
