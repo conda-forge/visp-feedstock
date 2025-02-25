@@ -39,7 +39,6 @@ cd build
 cmake ${CMAKE_ARGS} .. -DCMAKE_VERBOSE_MAKEFILE=ON \
       -DCMAKE_BUILD_TYPE=Release \
       -DVISP_PYTHON_SKIP_DETECTION=ON \
-      -DENABLE_FULL_DOC=ON \
       -DBUILD_TESTS=ON
 
 # build
