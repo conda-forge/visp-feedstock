@@ -36,7 +36,7 @@ fi
 mkdir build
 cd build
 
-cmake ${CMAKE_ARGS} .. \
+cmake ${CMAKE_ARGS} .. -DCMAKE_VERBOSE_MAKEFILE=ON \
       -DCMAKE_BUILD_TYPE=Release \
       -DVISP_PYTHON_SKIP_DETECTION=ON \
       -DBUILD_TESTS=ON
