@@ -38,18 +38,11 @@ requirements:
       else:
         - clang
         - ninja
-    - if: linux
-      then:
-        - ${{ cdt('mesa-libgl-devel') }}
-        - ${{ cdt('mesa-dri-drivers') }}
-        - ${{ cdt('libselinux') }}
-        - ${{ cdt('libxdamage') }}
-        - ${{ cdt('libxxf86vm') }}
-        - ${{ cdt('libxext') }}
   host:
     - if: unix
       then:
         - xorg-libx11
+        - xorg-xorgproto
         - libxml2
         - libdc1394 >=2.2.6
         - librealsense
