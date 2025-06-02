@@ -2,6 +2,12 @@
 
 set -ex
 
+# debugging X11 headers
+echo "-------- BEFORE -------"
+echo "----------------------------"
+cat ${PREFIX}/include/X11/Xlib.h
+echo "----------------------------"
+
 if [[ $target_platform == osx* ]] ; then
     # Dealing with modern C++ for Darwin in embedded catch library.
     # See https://conda-forge.org/docs/maintainer/knowledge_base.html#newer-c-features-with-old-sdk
@@ -11,12 +17,18 @@ if [[ $target_platform == osx* ]] ; then
     #  In MacOS, `tk` ships some X11 headers that interfere with the X11 libraries
     # Taken from https://github.com/conda-forge/isce2-feedstock/blob/a3c25f04af4fc831eafe76f6b931514b4fdc5b4c/recipe/build.sh#L6
     # Force reinstall these to (un)clobber any broken headers
-    # conda install -p ${PREFIX} -c conda-forge \
-    #     xorg-xproto \
-    #     xorg-libxt \
-    #     xorg-libx11 \
-    #     --yes --clobber --force-reinstall
+    conda install -p ${PREFIX} -c conda-forge \
+        xorg-xproto \
+        xorg-libxfixes \
+        xorg-libx11 \
+        --yes --clobber --force-reinstall
 fi
+
+# debugging X11 headers
+echo "-------- AFTER -------"
+echo "----------------------------"
+cat ${PREFIX}/include/X11/Xlib.h
+echo "----------------------------"
 
 mkdir build
 cd build
