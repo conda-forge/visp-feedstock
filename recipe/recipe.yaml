@@ -22,6 +22,8 @@ source:
     # Fix MBT tracker on arm64 archs for recent opencv version.
     # Should be fixed in release 3.7.0.
     - patches/0003-Update-usage-of-operators-with-the-new-Universal-Int.patch
+    - if: osx
+      then: patches/0001-debugging-x11-tk-includes.patch
 
 build:
   number: 1
