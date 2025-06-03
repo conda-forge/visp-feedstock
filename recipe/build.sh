@@ -34,9 +34,16 @@ mkdir build
 cd build
 
 cmake ${CMAKE_ARGS} .. \
+      -DCMAKE_VERBOSE_MAKEFILE=ON \
       -DCMAKE_BUILD_TYPE=Release \
       -DVISP_PYTHON_SKIP_DETECTION=ON \
       -DBUILD_TESTS=ON
+
+# debugging X11 headers
+echo "-------- cat CMakeCache.txt -------"
+echo "----------------------------"
+cat CMakeCache.txt
+echo "----------------------------"
 
 # build
 cmake --build . --parallel ${CPU_COUNT}
