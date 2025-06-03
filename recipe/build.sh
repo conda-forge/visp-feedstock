@@ -8,6 +8,7 @@ echo "----------------------------"
 cat ${PREFIX}/include/X11/Xlib.h
 echo "----------------------------"
 
+
 if [[ $target_platform == osx* ]] ; then
     # Dealing with modern C++ for Darwin in embedded catch library.
     # See https://conda-forge.org/docs/maintainer/knowledge_base.html#newer-c-features-with-old-sdk
@@ -50,13 +51,16 @@ fi
 # find / -name "Xlib.h" 2>/dev/null 
 # echo "----------------------------"
 
-ls /Users/runner/miniforge3/include
 
 # debugging X11 headers
 echo "-------- AFTER -------"
 echo "----------------------------"
 cat ${PREFIX}/include/X11/Xlib.h
 echo "----------------------------"
+cat /Users/runner/miniforge3/include/X11/Xlib.h
+echo "----------------------------"
+
+mv /Users/runner/miniforge3/include /Users/runner/tmp
 
 mkdir build
 cd build
@@ -82,6 +86,8 @@ cmake --build . --parallel ${CPU_COUNT}
 
 # install 
 cmake --build . --parallel ${CPU_COUNT} --target install
+
+mv /Users/runner/tmp /Users/runner/miniforge3/include
 
 # test
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
