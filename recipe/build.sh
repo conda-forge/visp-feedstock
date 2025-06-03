@@ -46,6 +46,11 @@ if [[ $target_platform == osx* ]] ; then
     # CXXFLAGS="${CXXFLAGS} -DMAC_OSX_TK=1"
 fi
 
+echo "-------- find xlib -------"
+echo "----------------------------"
+find / -name "Xlib.h" 2>/dev/null 
+echo "----------------------------"
+
 # debugging X11 headers
 echo "-------- AFTER -------"
 echo "----------------------------"
