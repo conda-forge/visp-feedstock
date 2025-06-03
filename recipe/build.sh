@@ -17,12 +17,13 @@ if [[ $target_platform == osx* ]] ; then
     #  In MacOS, `tk` ships some X11 headers that interfere with the X11 libraries
     # Taken from https://github.com/conda-forge/isce2-feedstock/blob/a3c25f04af4fc831eafe76f6b931514b4fdc5b4c/recipe/build.sh#L6
     # Force reinstall these to (un)clobber any broken headers
-    # conda install -p ${PREFIX} -c conda-forge \
-    #     xorg-xproto \
-    #     xorg-libxfixes \
-    #     xorg-libx11 \
-    #     --yes --clobber --force-reinstall
-    # CMAKE_EXTRA_FLAGS="-DMAC_OSX_TK=1"
+    conda install -p ${PREFIX} -c conda-forge \
+        xorg-xproto \
+        xorg-libxfixes \
+        xorg-libx11 \
+        --yes --clobber --force-reinstall
+    # these enable the declaration of some X function missings in TK embedded Xlib.h, but not all that visp 
+    # is using
     CXXFLAGS="${CXXFLAGS} -DMAC_OSX_TK=1"
 fi
 
