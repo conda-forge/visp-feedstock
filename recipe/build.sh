@@ -45,10 +45,10 @@ if [[ $target_platform == osx* ]] ; then
     # is using
     # CXXFLAGS="${CXXFLAGS} -DMAC_OSX_TK=1"
 fi
-echo "-------- find xlib -------"
-echo "----------------------------"
-find / -name "Xlib.h" 2>/dev/null 
-echo "----------------------------"
+# echo "-------- find xlib -------"
+# echo "----------------------------"
+# find / -name "Xlib.h" 2>/dev/null 
+# echo "----------------------------"
 
 
 # debugging X11 headers
@@ -71,6 +71,10 @@ echo "-------- cat CMakeCache.txt -------"
 echo "----------------------------"
 cat CMakeCache.txt
 echo "----------------------------"
+
+make developer_scripts
+
+./bin/visp-config --cflags
 
 # build
 cmake --build . --parallel ${CPU_COUNT}
