@@ -50,6 +50,7 @@ fi
 # find / -name "Xlib.h" 2>/dev/null 
 # echo "----------------------------"
 
+ls /Users/runner/miniforge3/include
 
 # debugging X11 headers
 echo "-------- AFTER -------"
