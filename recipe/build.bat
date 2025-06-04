@@ -15,6 +15,7 @@ cmake ^
     %CMAKE_ARGS% ^
     %SRC_DIR% ^
     -G Ninja ^
+    -DCMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH=FALSE ^
     -DBUILD_TESTS=ON ^
     -DOGRE_DIR="%OGRE_DIR%" ^
     -DCMAKE_BUILD_TYPE:STRING=Release ^
