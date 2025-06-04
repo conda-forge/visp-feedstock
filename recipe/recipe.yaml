@@ -61,6 +61,7 @@ requirements:
     - libcblas
     - liblapack
     - liblapacke
+    - nlohmann_json
   run:
     - if: win
       then: pthreads-win32
