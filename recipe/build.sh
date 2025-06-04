@@ -46,6 +46,7 @@ mkdir build
 cd build
 
 cmake ${CMAKE_ARGS} .. --debug-find-pkg=nlohmann_json \
+      -DCMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH=FALSE \
       -DCMAKE_VERBOSE_MAKEFILE=ON \
       -DCMAKE_BUILD_TYPE=Release \
       -DVISP_PYTHON_SKIP_DETECTION=ON \
