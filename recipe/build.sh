@@ -2,13 +2,6 @@
 
 set -ex
 
-# debugging X11 headers
-echo "-------- BEFORE -------"
-echo "----------------------------"
-cat ${PREFIX}/include/X11/Xlib.h
-echo "----------------------------"
-
-
 if [[ $target_platform == osx* ]] ; then
     # Dealing with modern C++ for Darwin in embedded catch library.
     # See https://conda-forge.org/docs/maintainer/knowledge_base.html#newer-c-features-with-old-sdk
@@ -46,26 +39,13 @@ if [[ $target_platform == osx* ]] ; then
     # is using
     # CXXFLAGS="${CXXFLAGS} -DMAC_OSX_TK=1"
 fi
-# echo "-------- find xlib -------"
-# echo "----------------------------"
-# find / -name "Xlib.h" 2>/dev/null 
-# echo "----------------------------"
 
-
-# debugging X11 headers
-echo "-------- AFTER -------"
-echo "----------------------------"
-cat ${PREFIX}/include/X11/Xlib.h
-echo "----------------------------"
-cat /Users/runner/miniforge3/include/X11/Xlib.h
-echo "----------------------------"
-
-mv /Users/runner/miniforge3/include /Users/runner/tmp
+# mv /Users/runner/miniforge3/include /Users/runner/tmp
 
 mkdir build
 cd build
 
-cmake ${CMAKE_ARGS} .. \
+cmake ${CMAKE_ARGS} .. --debug-find-pkg=nlohmann_json \
       -DCMAKE_VERBOSE_MAKEFILE=ON \
       -DCMAKE_BUILD_TYPE=Release \
       -DVISP_PYTHON_SKIP_DETECTION=ON \
@@ -87,7 +67,7 @@ cmake --build . --parallel ${CPU_COUNT}
 # install 
 cmake --build . --parallel ${CPU_COUNT} --target install
 
-mv /Users/runner/tmp /Users/runner/miniforge3/include
+# mv /Users/runner/tmp /Users/runner/miniforge3/include
 
 # test
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
