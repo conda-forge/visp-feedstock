@@ -1,0 +1,25 @@
+From 8555381c6a614d44e412316cc1b3dfa2abc128f4 Mon Sep 17 00:00:00 2001
+From: Olivier Roussel <olivier.roussel@inria.fr>
+Date: Wed, 4 Jun 2025 10:57:43 +0200
+Subject: [PATCH] add cmake variable watcher
+
+---
+ CMakeLists.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 646b40f26..43c469ca5 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -33,6 +33,8 @@
+ #
+ #############################################################################
+ 
++variable_watch(CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH)
++
+ # Detect crosscompiling; need to be before project(VISP) to work
+ if(NOT CMAKE_TOOLCHAIN_FILE)
+   # Modify default install prefix
+-- 
+2.34.1
+

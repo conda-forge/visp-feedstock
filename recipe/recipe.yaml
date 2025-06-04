@@ -23,6 +23,8 @@ source:
     # Should be fixed in release 3.7.0.
     - patches/0003-Update-usage-of-operators-with-the-new-Universal-Int.patch
 
+    - if: osx
+      then: patches/0001-add-cmake-variable-watcher.patch
 build:
   number: ${{ build_num }}
 
