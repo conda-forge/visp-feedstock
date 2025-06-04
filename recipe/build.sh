@@ -26,7 +26,8 @@ cd build
 # it is set to some system paths such as the base conda environment, and 
 # some dependencies can be detected outside active conda environment is they are not
 # used for this recipe (such as nlohmann_json), as they are installed in the conda base env
-cmake ${CMAKE_ARGS} .. --debug-find-pkg=nlohmann_json \
+cmake ${CMAKE_ARGS} .. \
+      -DCMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH=FALSE \
       -DCMAKE_VERBOSE_MAKEFILE=ON \
       -DCMAKE_BUILD_TYPE=Release \
       -DVISP_PYTHON_SKIP_DETECTION=ON \
@@ -37,8 +38,6 @@ cmake --build . --parallel ${CPU_COUNT}
 
 # install 
 cmake --build . --parallel ${CPU_COUNT} --target install
-
-# mv /Users/runner/tmp /Users/runner/miniforge3/include
 
 # test
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
