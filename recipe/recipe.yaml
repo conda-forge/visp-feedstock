@@ -1,7 +1,7 @@
 context:
   name: visp
   version: 3.6.0
-  build_num: 10
+  build_num: 11
 
 package:
   name: ${{ name|lower }}
@@ -32,12 +32,10 @@ requirements:
     - ${{ compiler('cxx') }}
     - ${{ stdlib('c') }}
     - cmake
-    - if: not win
-      then:
-        - make
-      else:
+    - ninja
+    - if: win
+      then: 
         - clang
-        - ninja
   host:
     - if: unix
       then:

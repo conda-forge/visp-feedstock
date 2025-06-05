@@ -27,6 +27,7 @@ cd build
 # some dependencies can be detected outside active conda environment is they are not
 # used for this recipe (such as nlohmann_json), as they are installed in the conda base env
 cmake ${CMAKE_ARGS} .. \
+      -G Ninja \
       -DCMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH=FALSE \
       -DCMAKE_VERBOSE_MAKEFILE=ON \
       -DCMAKE_BUILD_TYPE=Release \
