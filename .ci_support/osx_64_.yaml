@@ -19,21 +19,23 @@ cxx_compiler:
 cxx_compiler_version:
 - '18'
 libblas:
-- 3.9 *netlib
+- 3.9.* *netlib
 libcblas:
-- 3.9 *netlib
+- 3.9.* *netlib
 libjpeg_turbo:
 - '3'
 liblapack:
-- 3.9 *netlib
+- 3.9.* *netlib
 liblapacke:
-- 3.9 *netlib
+- 3.9.* *netlib
 libopencv:
-- 4.10.0
+- 4.11.0
 libpng:
 - '1.6'
+librealsense:
+- '2.55'
 libxml2:
-- '2'
+- '2.13'
 llvm_openmp:
 - '18'
 macos_machine:

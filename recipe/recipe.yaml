@@ -1,7 +1,7 @@
 context:
   name: visp
   version: 3.6.0
-  build_num: 10
+  build_num: 11
 
 package:
   name: ${{ name|lower }}
@@ -32,26 +32,16 @@ requirements:
     - ${{ compiler('cxx') }}
     - ${{ stdlib('c') }}
     - cmake
-    - if: linux and aarch64
-      then: 
-        - make
-      else:
-        - ninja
+    - ninja
     - if: win
-      then:
-        - clang
-    - if: linux
       then: 
-        - ${{ cdt('mesa-libgl-devel') }}
-        - ${{ cdt('mesa-dri-drivers') }}
-        - ${{ cdt('libselinux') }}
-        - ${{ cdt('libxdamage') }}
-        - ${{ cdt('libxxf86vm') }}
-        - ${{ cdt('libxext') }}
+        - clang
   host:
     - if: unix
       then:
         - xorg-libx11
+        - xorg-libxfixes
+        - xorg-xorgproto
         - libxml2
         - libdc1394 >=2.2.6
         - librealsense
@@ -69,6 +59,7 @@ requirements:
     - libcblas
     - liblapack
     - liblapacke
+    - nlohmann_json
   run:
     - if: win
       then: pthreads-win32
@@ -80,7 +71,7 @@ requirements:
 
 tests:
   - package_contents:
-      include: 
+      include:
         - visp3/visp.h
       lib:
         # win libs contains version specific strings that are not available for now from jinja
@@ -91,7 +82,7 @@ tests:
           else:
             - visp_core*
 
-      files: 
+      files:
         - ${{ "Library" if win else "lib" }}/cmake/${{ "visp/" if unix }}VISPConfig.cmake
         - ${{ "Library" if win else "lib" }}/cmake/${{ "visp/" if unix }}VISPConfig-version.cmake
 
@@ -106,7 +97,7 @@ tests:
 
 about:
   summary: A cross-platform library for prototyping and developing applications using visual tracking and visual servoing technic.
-  license: GPL-2.0-or-later
+  license: GPL-2.0-only
   license_file: LICENSE.txt
   homepage: https://visp.inria.fr/
   repository: https://github.com/lagadic/visp
