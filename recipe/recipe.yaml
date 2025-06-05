@@ -1,7 +1,7 @@
 context:
   name: visp
   version: 3.6.0
-  build_num: 9
+  build_num: 10
 
 package:
   name: ${{ name|lower }}
@@ -33,24 +33,17 @@ requirements:
     - ${{ stdlib('c') }}
     - cmake
     - if: not win
-      then: 
+      then:
         - make
-    - if: win
-      then: 
+      else:
         - clang
         - ninja
-    - if: linux
-      then: 
-        - ${{ cdt('mesa-libgl-devel') }}
-        - ${{ cdt('mesa-dri-drivers') }}
-        - ${{ cdt('libselinux') }}
-        - ${{ cdt('libxdamage') }}
-        - ${{ cdt('libxxf86vm') }}
-        - ${{ cdt('libxext') }}
   host:
     - if: unix
       then:
         - xorg-libx11
+        - xorg-libxfixes
+        - xorg-xorgproto
         - libxml2
         - libdc1394 >=2.2.6
         - librealsense
@@ -68,6 +61,7 @@ requirements:
     - libcblas
     - liblapack
     - liblapacke
+    - nlohmann_json
   run:
     - if: win
       then: pthreads-win32
@@ -79,7 +73,7 @@ requirements:
 
 tests:
   - package_contents:
-      include: 
+      include:
         - visp3/visp.h
       lib:
         # win libs contains version specific strings that are not available for now from jinja
@@ -90,7 +84,7 @@ tests:
           else:
             - visp_core*
 
-      files: 
+      files:
         - ${{ "Library" if win else "lib" }}/cmake/${{ "visp/" if unix }}VISPConfig.cmake
         - ${{ "Library" if win else "lib" }}/cmake/${{ "visp/" if unix }}VISPConfig-version.cmake
 
