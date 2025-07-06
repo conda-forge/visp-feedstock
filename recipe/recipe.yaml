@@ -24,7 +24,7 @@ source:
     - patches/0003-Update-usage-of-operators-with-the-new-Universal-Int.patch
 
 build:
-  number: ${{ build_num }}
+  number: 1
 
 requirements:
   build:
@@ -34,7 +34,7 @@ requirements:
     - cmake
     - ninja
     - if: win
-      then: 
+      then:
         - clang
   host:
     - if: unix
