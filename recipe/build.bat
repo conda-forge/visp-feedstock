@@ -35,9 +35,6 @@ if errorlevel 1 exit 1
 :: we have to make it accessible without knowledge on the current compiler
 :: version (as VS_xxx environment variables are not accessible within the test section
 :: of the recipe)
-echo "-------------------------------"
-dir "%LIBRARY_PREFIX%\bin"
-echo "-------------------------------"
 copy %LIBRARY_PREFIX%\bin\visp-config*.bat %LIBRARY_PREFIX%\bin\visp-config.bat
 
 :: Test
