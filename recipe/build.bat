@@ -38,7 +38,7 @@ if errorlevel 1 exit 1
 echo "-------------------------------"
 dir "%LIBRARY_PREFIX%\bin"
 echo "-------------------------------"
-copy "%LIBRARY_PREFIX%\bin\visp-config-x%ARCH%-vc%VS_MAJOR%.bat" "%LIBRARY_PREFIX%\bin\visp-config.bat"
+copy %LIBRARY_PREFIX%\bin\visp-config*.bat %LIBRARY_PREFIX%\bin\visp-config.bat
 
 :: Test
 ctest --parallel "%CPU_COUNT%"
