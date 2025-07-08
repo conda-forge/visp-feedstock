@@ -35,7 +35,7 @@ if errorlevel 1 exit 1
 :: we have to make it accessible without knowledge on the current compiler
 :: version (as VS_xxx environment variables are not accessible within the test section
 :: of the recipe)
-copy "%LIBRARY_PREFIX%\bin\visp-config-x%ARCH%-vc%VS_MAJOR%.bat" "%LIBRARY_PREFIX%\bin\visp-config.bat"
+copy %LIBRARY_PREFIX%\bin\visp-config*.bat %LIBRARY_PREFIX%\bin\visp-config.bat
 
 :: Test
 ctest --parallel "%CPU_COUNT%"
