@@ -21,6 +21,9 @@ export RECIPE_ROOT="${RECIPE_ROOT:-/home/conda/recipe_root}"
 export CI_SUPPORT="${FEEDSTOCK_ROOT}/.ci_support"
 export CONFIG_FILE="${CI_SUPPORT}/${CONFIG}.yaml"
 
+# build portion of https://github.com/conda-forge/conda-smithy/issues/2057
+export RATTLER_BUILD_EXPERIMENTAL=true
+
 cat >~/.condarc <<CONDARC
 
 conda-build:
