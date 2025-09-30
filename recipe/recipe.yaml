@@ -23,7 +23,7 @@ source:
     - patches/0003-Update-usage-of-operators-with-the-new-Universal-Int.patch
 
 build:
-  number: 13
+  number: 14
 
 requirements:
   build:
@@ -41,7 +41,7 @@ requirements:
         - xorg-libx11
         - xorg-libxfixes
         - xorg-xorgproto
-        - libxml2
+        - libxml2-devel
         - libdc1394 >=2.2.6
         - librealsense
     - if: win or osx
@@ -62,8 +62,6 @@ requirements:
   run:
     - if: win
       then: pthreads-win32
-    - if: osx
-      then: libcxx
     - eigen
   run_exports:
     - ${{ pin_subpackage(name, upper_bound='x.x') }}

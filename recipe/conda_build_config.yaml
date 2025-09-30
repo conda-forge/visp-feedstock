@@ -1,0 +1,7 @@
+# Required to align with opencv
+MACOSX_SDK_VERSION:            # [osx and x86_64]
+  - '11.0'                     # [osx and x86_64]
+# Inherited from OpenCV, see
+# https://github.com/conda-forge/opencv-feedstock/commit/4cbeca04ab402c259696f4c89a25ae7952e7acdd  
+c_stdlib_version:              # [osx and x86_64]
+  - '11.0'                     # [osx and x86_64]
