@@ -74,7 +74,7 @@ outputs:
         - nlohmann_json
         # panda3d is not available yet on cross-compiled platforms on conda-forge
         # https://github.com/conda-forge/panda3d-feedstock/pull/60
-        - if: not (aarch64 and arm64)
+        - if: not (aarch64 or arm64)
           then:
             - panda3d
       run:
@@ -146,7 +146,7 @@ outputs:
             - xorg-xorgproto
         # panda3d is not available yet on cross-compiled platforms on conda-forge
         # https://github.com/conda-forge/panda3d-feedstock/pull/60            
-        - if: not (aarch64 and arm64)
+        - if: not (aarch64 or arm64)
           then:
             - panda3d            
         - ${{ pin_subpackage('libvisp', exact=true) }}
