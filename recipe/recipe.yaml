@@ -9,68 +9,30 @@ recipe:
 build:
   number: 0
 
-cache:
-  source:
-    # git: https://github.com/lagadic/visp
-    # branch: master
-    git: https://github.com/olivier-roussel/visp
-    branch: fix-rbt-math-header
-    # url: https://github.com/lagadic/visp/archive/refs/tags/v${{ version }}.tar.gz
-    # sha256: eec93f56b89fd7c0d472b019e01c3fe03a09eda47f3903c38dc53a27cbfae532
-    patches:
-      # Current version of this package do not enable AVX support. The Windows build uses
-      # the Clang-cl compiler wich fails to build the embedded Simd library on AVX instructions
-      # even when AVX flags are not on for some unknown reason, so we have to force
-      # disabling AVX support at the Simd library level.
-      - if: win
-        then: patches/0002-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch
-  build:
-    script: scripts/build-cache
-
-  requirements:
-    build:
-      - ${{ compiler('c') }}
-      - ${{ compiler('cxx') }}
-      - ${{ stdlib('c') }}
-      - cmake
-      - ninja
-      - pkgconfig
-      - if: win
-        then:
-          - clang
-    host:
-      - if: unix
-        then:
-          - xorg-libx11
-          - xorg-libxfixes
-          - xorg-xorgproto
-          - libxml2
-          - libdc1394 >=2.2.6
-          - librealsense
-      - if: osx
-        then:
-          - llvm-openmp
-      - libopencv
-      - eigen
-      - libjpeg-turbo
-      - libpng
-      - libblas
-      - libcblas
-      - liblapack
-      - liblapacke
-      - nlohmann_json
-      - if: not (osx and arm64)
-        then:
-          - panda3d
-    run:
-      - if: osx
-        then: libcxx
-      - eigen
+source:
+  git: https://github.com/lagadic/visp
+  branch: master
+  # url: https://github.com/lagadic/visp/archive/refs/tags/v${{ version }}.tar.gz
+  # sha256: eec93f56b89fd7c0d472b019e01c3fe03a09eda47f3903c38dc53a27cbfae532
+  patches:
+    # https://github.com/lagadic/visp/pull/1867
+    - patches/0001-skip-python-detection-at-cmakelists-level.patch
+    # https://github.com/lagadic/visp/pull/1868
+    - patches/0002-uninstall-build-package-visp-python-bindgen-to-avoid.patch
+    # https://github.com/lagadic/visp/pull/1869
+    - patches/0003-add-missing-std-array-header.patch
+    # Current version of this package do not enable AVX support. The Windows build uses
+    # the Clang-cl compiler wich fails to build the embedded Simd library on AVX instructions
+    # even when AVX flags are not on for some unknown reason, so we have to force
+    # disabling AVX support at the Simd library level.
+    - if: win
+      then: patches/0010-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch
 
 outputs:
   - package:
       name: libvisp
-    build:  
+    build:
+      script: scripts/build-lib
       files:
         - ${{ "Library/" if win }}bin/*
         - ${{ "Library/" if win }}lib/${{ "lib" if not win }}visp*
@@ -78,6 +40,45 @@ outputs:
         - ${{ "Library/" if win }}lib/cmake/visp*
         - ${{ "Library/" if win }}share/*
     requirements:
+      build:
+        - ${{ compiler('cxx') }}
+        - ${{ stdlib('c') }}
+        - cmake
+        - ninja
+        - pkgconfig
+        - if: win
+          then:
+            - clang
+      host:
+        - if: unix
+          then:
+            - xorg-libx11
+            - xorg-libxfixes
+            - xorg-xorgproto
+            - libxml2
+            - libdc1394 >=2.2.6
+            - librealsense
+        - if: osx
+          then:
+            - llvm-openmp
+        - libopencv
+        - eigen
+        - libjpeg-turbo
+        - libpng
+        - libblas
+        - libcblas
+        - liblapack
+        - liblapacke
+        - nlohmann_json
+        # panda3d is not available yet on cross-compiled platforms on conda-forge
+        # https://github.com/conda-forge/panda3d-feedstock/pull/60
+        - if: not (aarch64 and arm64)
+          then:
+            - panda3d
+      run:
+        - if: osx
+          then: libcxx
+        - eigen
       run_exports:
         - ${{ pin_subpackage('libvisp', upper_bound='x.x') }}
     tests:
@@ -92,9 +93,13 @@ outputs:
                 - visp_core
               else:
                 - visp_core*
-          files:
-            - ${{ "Library" if win else "lib" }}/cmake/${{ "visp/" if unix }}VISPConfig.cmake
-            - ${{ "Library" if win else "lib" }}/cmake/${{ "visp/" if unix }}VISPConfig-version.cmake
+      - script:
+        - cmake-package-check visp
+        requirements:
+          run:
+            - cmake-package-check
+            - ${{ compiler('c') }}
+            - ${{ compiler('cxx') }}            
       - script:
           - if: unix
             then: visp-config --version
@@ -105,6 +110,7 @@ outputs:
               - call Library\bin\visp-config.bat --version
     about:
       summary: A cross-platform library for prototyping and developing applications using visual tracking and visual servoing technic.
+      description: C++ development libraries for ViSP.
       license: GPL-2.0-only
       license_file: LICENSE.txt
       homepage: https://visp.inria.fr/
@@ -122,14 +128,10 @@ outputs:
             - python
             - cross-python_${{ target_platform }}
             - numpy
-        - ${{ compiler('c') }}
         - ${{ compiler('cxx') }}
-        - ${{ stdlib('c') }}
         - cmake
         - ninja
         - pkgconfig
-        - pip
-        - setuptools
         - if: win
           then:
             - clang
@@ -139,13 +141,17 @@ outputs:
         - pybind11
         - pip
         - setuptools
-        - zlib
+        - cxxheaderparser
+        - doxmlparser
+        - pcpp
+        - tqdm
+        - mypy        
         - if: unix
           then:
-            - xorg-libx11
-            - xorg-libxfixes
             - xorg-xorgproto
-        - if: not (osx and arm64)
+        # panda3d is not available yet on cross-compiled platforms on conda-forge
+        # https://github.com/conda-forge/panda3d-feedstock/pull/60            
+        - if: not (aarch64 and arm64)
           then:
             - panda3d            
         - ${{ pin_subpackage('libvisp', exact=true) }}
@@ -156,8 +162,10 @@ outputs:
       - python:
           imports:
             - visp
+
     about:
       summary: A cross-platform library for prototyping and developing applications using visual tracking and visual servoing technic.
+      description: Python bindings for ViSP.
       license: GPL-2.0-only
       license_file: LICENSE.txt
       homepage: https://visp.inria.fr/

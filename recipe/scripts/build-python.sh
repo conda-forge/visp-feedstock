@@ -2,13 +2,8 @@
 
 set -ex
 
-cd build
-
-# rattler-build restricts the use of pip, but in ViSP pip is called
-# through cmake to create/install the python bindings generator. So
-# temporarly change this settings for the build.
-export PIP_NO_INDEX=False
-export PIP_NO_DEPENDENCIES=False
+mkdir build-python
+cd build-python
 
 # We have to force CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH to False, otherwise
 # it is set to some system paths such as the base conda environment, and 
@@ -20,20 +15,17 @@ cmake ${CMAKE_ARGS} .. \
       -DCMAKE_VERBOSE_MAKEFILE=ON \
       -DCMAKE_BUILD_TYPE=Release \
       -DVISP_PYTHON_SKIP_DETECTION=OFF \
+      -DPython3_ROOT:PATH=${PREFIX} \
       -DBUILD_PYTHON_BINDINGS=ON \
       -DBUILD_TESTS=ON
 
 # build
 cmake --build . --parallel ${CPU_COUNT} --target visp_python_bindings
 
-# Restore rattler-build pip restrictions
-export PIP_NO_INDEX=True
-export PIP_NO_DEPENDENCIES=True
-
 # Install python bindings
 cd modules/python/bindings
 ${PYTHON} -m pip install . -vv --no-deps --no-build-isolation --ignore-installed .
 
-# and stubs
+# # and stubs
 cd ../stubs
 ${PYTHON} -m pip install . -vv --no-deps --no-build-isolation --ignore-installed .

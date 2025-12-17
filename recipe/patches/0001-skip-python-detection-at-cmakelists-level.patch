@@ -1,0 +1,25 @@
+From 8ecd2d45a971630724501d2e28a0f10f34d1385e Mon Sep 17 00:00:00 2001
+From: Olivier Roussel <olivier.roussel@inria.fr>
+Date: Mon, 15 Dec 2025 14:45:19 +0100
+Subject: [PATCH] skip python detection at cmakelists level
+
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4f3ad49af..335c0be50 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -275,7 +275,7 @@ else()
+ endif()
+ 
+ # --- Python Support ---
+-if(NOT IOS)
++if(NOT IOS AND NOT VISP_PYTHON_SKIP_DETECTION)
+   # Make sure to refresh the python interpreter every time we rerun cmake
+   # If we don't do this, we may use an old or invalid python when installing the bindings
+   # that was cached by a previous attempt at building
+-- 
+2.43.0
+

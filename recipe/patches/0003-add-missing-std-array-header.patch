@@ -1,0 +1,25 @@
+From bf9cb5c69e39dc8c2ed128dfb6549bbabd3b5199 Mon Sep 17 00:00:00 2001
+From: Olivier Roussel <olivier.roussel@inria.fr>
+Date: Wed, 17 Dec 2025 17:34:30 +0100
+Subject: [PATCH] add missing std array header
+
+---
+ modules/tracker/rbt/include/visp3/rbt/vpRBFeatureTracker.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/modules/tracker/rbt/include/visp3/rbt/vpRBFeatureTracker.h b/modules/tracker/rbt/include/visp3/rbt/vpRBFeatureTracker.h
+index b20d277fb..42c09167f 100644
+--- a/modules/tracker/rbt/include/visp3/rbt/vpRBFeatureTracker.h
++++ b/modules/tracker/rbt/include/visp3/rbt/vpRBFeatureTracker.h
+@@ -35,6 +35,8 @@
+ #ifndef VP_RB_FEATURE_TRACKER_H
+ #define VP_RB_FEATURE_TRACKER_H
+ 
++#include <array>
++
+ #include <visp3/core/vpConfig.h>
+ #include <visp3/core/vpMatrix.h>
+ #include <visp3/core/vpColVector.h>
+-- 
+2.43.0
+
