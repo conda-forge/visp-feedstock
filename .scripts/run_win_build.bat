@@ -12,9 +12,6 @@
 
 setlocal enableextensions enabledelayedexpansion
 
-:: build portion of https://github.com/conda-forge/conda-smithy/issues/2057
-set "RATTLER_BUILD_EXPERIMENTAL=true"
-
 FOR %%A IN ("%~dp0.") DO SET "REPO_ROOT=%%~dpA"
 if "%MINIFORGE_HOME%"=="" set "MINIFORGE_HOME=%USERPROFILE%\Miniforge3"
 :: Remove trailing backslash, if present

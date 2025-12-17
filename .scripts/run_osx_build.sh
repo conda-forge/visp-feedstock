@@ -6,9 +6,6 @@ source .scripts/logging_utils.sh
 
 set -xe
 
-# build portion of https://github.com/conda-forge/conda-smithy/issues/2057
-export RATTLER_BUILD_EXPERIMENTAL=true
-
 MINIFORGE_HOME="${MINIFORGE_HOME:-${HOME}/miniforge3}"
 MINIFORGE_HOME="${MINIFORGE_HOME%/}" # remove trailing slash
 export CONDA_BLD_PATH="${CONDA_BLD_PATH:-${MINIFORGE_HOME}/conda-bld}"
