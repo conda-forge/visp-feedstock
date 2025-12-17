@@ -33,7 +33,7 @@ libpng:
 librealsense:
 - '2.56'
 libxml2:
-- '2.13'
+- '2.14'
 numpy:
 - '2'
 pin_run_as_build:
