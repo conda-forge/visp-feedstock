@@ -6,10 +6,9 @@ recipe:
   name: ${{ name|lower }}
   version: ${{ version }}
 
-build:
-  number: 0
-
 source:
+  # We will use tarball archive from the next release 3.7.0 which will include python bindings
+  # once released
   git: https://github.com/lagadic/visp
   branch: master
   # url: https://github.com/lagadic/visp/archive/refs/tags/v${{ version }}.tar.gz
@@ -27,6 +26,9 @@ source:
     # disabling AVX support at the Simd library level.
     - if: win
       then: patches/0010-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch
+
+build:
+  number: 0
 
 outputs:
   - package:
@@ -108,14 +110,6 @@ outputs:
             then:
               - dir
               - call Library\bin\visp-config.bat --version
-    about:
-      summary: A cross-platform library for prototyping and developing applications using visual tracking and visual servoing technic.
-      description: C++ development libraries for ViSP.
-      license: GPL-2.0-only
-      license_file: LICENSE.txt
-      homepage: https://visp.inria.fr/
-      repository: https://github.com/lagadic/visp
-      documentation: https://visp-doc.inria.fr/doxygen/visp-${{ version }}/
 
   - package:
       name: visp-python
@@ -129,6 +123,7 @@ outputs:
             - cross-python_${{ target_platform }}
             - numpy
         - ${{ compiler('cxx') }}
+        - ${{ stdlib('c') }}
         - cmake
         - ninja
         - pkgconfig
@@ -163,15 +158,15 @@ outputs:
           imports:
             - visp
 
-    about:
-      summary: A cross-platform library for prototyping and developing applications using visual tracking and visual servoing technic.
-      description: Python bindings for ViSP.
-      license: GPL-2.0-only
-      license_file: LICENSE.txt
-      homepage: https://visp.inria.fr/
-      repository: https://github.com/lagadic/visp
-      documentation: https://visp-doc.inria.fr/doxygen/visp-${{ version }}/
-
+about:
+  summary: A cross-platform library for prototyping and developing applications using visual tracking and visual servoing technic.
+  description: C++ development libraries and Python bidings for ViSP.
+  license: GPL-2.0-only
+  license_file: LICENSE.txt
+  homepage: https://visp.inria.fr/
+  repository: https://github.com/lagadic/visp
+  documentation: https://visp-doc.inria.fr/doxygen/visp-${{ version }}/
+  
 extra:
   recipe-maintainers:
     - olivier-roussel
