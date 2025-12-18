@@ -8,8 +8,10 @@ if [[ $target_platform == osx* ]] ; then
     CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
 fi
 
-mkdir build-python
-cd build-python
+# We need to clean previous build as space is too low on runners
+rm -rf build
+mkdir build
+cd build
 
 # We have to force CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH to False, otherwise
 # it is set to some system paths such as the base conda environment, and 

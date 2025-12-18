@@ -33,7 +33,7 @@ outputs:
         - ${{ "Library/" if win }}bin/*
         - ${{ "Library/" if win }}lib/${{ "lib" if not win }}visp*
         - ${{ "Library/" if win }}include/*
-        - ${{ "Library/" if win else "lib/"}}cmake/visp*
+        - ${{ "Library/" if win }}lib/cmake/visp*
         - ${{ "Library/" if win }}share/*
     requirements:
       build:

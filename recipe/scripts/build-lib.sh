@@ -19,8 +19,8 @@ if [[ $target_platform == osx* ]] ; then
         --yes --clobber --force-reinstall
 fi
 
-mkdir build-lib
-cd build-lib
+mkdir build
+cd build
 
 # We have to force CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH to False, otherwise
 # it is set to some system paths such as the base conda environment, and 

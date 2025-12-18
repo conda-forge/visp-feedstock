@@ -20,7 +20,7 @@ cmake ^
     -DCMAKE_BUILD_TYPE:STRING=Release ^
     -DVISP_LIB_INSTALL_PATH:PATH="lib" ^
     -DVISP_BIN_INSTALL_PATH:PATH="bin" ^
-    -DVISP_CONFIG_INSTALL_PATH:PATH="cmake"
+    -DVISP_CONFIG_INSTALL_PATH:PATH="lib\cmake"
 if errorlevel 1 exit 1
 
 :: Build.
