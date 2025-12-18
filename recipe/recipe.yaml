@@ -96,7 +96,7 @@ outputs:
               else:
                 - visp_core*
       - script:
-        - cmake-package-check visp
+        - cmake-package-check VISP
         requirements:
           run:
             - cmake-package-check
