@@ -153,6 +153,26 @@ outputs:
           imports:
             - visp
 
+  - package:
+      name: ${{ name }}
+    requirements:
+      run:
+        - ${{ pin_subpackage(libvisp, exact=true) }}
+        - ${{ pin_subpackage(visp-python, exact=true) }}
+      run_exports:
+        - ${{ pin_subpackage(libvisp, max_pin='x.x') }}
+    test:
+      - script:
+        - cmake-package-check VISP
+        requirements:
+          run:
+            - cmake-package-check
+            - ${{ compiler('c') }}
+            - ${{ compiler('cxx') }}
+      - python:
+          imports:
+            - visp
+
 about:
   summary: A cross-platform library for prototyping and developing applications using visual tracking and visual servoing technic.
   description: C++ development libraries and Python bidings for ViSP.
