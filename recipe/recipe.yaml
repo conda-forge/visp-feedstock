@@ -116,6 +116,7 @@ outputs:
             - python
             - cross-python_${{ target_platform }}
             - numpy
+            - python-librt >=0.6.2
         - ${{ compiler('cxx') }}
         - ${{ stdlib('c') }}
         - cmake
@@ -134,7 +135,7 @@ outputs:
         - doxmlparser
         - pcpp
         - tqdm
-        - mypy        
+        - mypy
         - if: unix
           then:
             - xorg-xorgproto
