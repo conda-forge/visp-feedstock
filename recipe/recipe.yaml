@@ -29,12 +29,6 @@ outputs:
       name: libvisp
     build:
       script: scripts/build-lib
-      files:
-        - ${{ "Library/" if win }}bin/*
-        - ${{ "Library/" if win }}lib/${{ "lib" if not win }}visp*
-        - ${{ "Library/" if win }}include/*
-        - ${{ "Library/" if win }}lib/cmake/VISP*
-        - ${{ "Library/" if win }}share/*
     requirements:
       build:
         - ${{ compiler('cxx') }}
