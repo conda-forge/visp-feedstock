@@ -161,7 +161,7 @@ outputs:
         - ${{ pin_subpackage('visp-python', exact=true) }}
       run_exports:
         - ${{ pin_subpackage('libvisp', upper_bound='x.x') }}
-    test:
+    tests:
       - script:
         - cmake-package-check VISP
         requirements:
