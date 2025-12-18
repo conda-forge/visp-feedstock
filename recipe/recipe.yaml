@@ -33,7 +33,7 @@ outputs:
         - ${{ "Library/" if win }}bin/*
         - ${{ "Library/" if win }}lib/${{ "lib" if not win }}visp*
         - ${{ "Library/" if win }}include/*
-        - ${{ "Library/" if win }}lib/cmake/visp*
+        - ${{ "Library/" if win }}lib/cmake/VISP*
         - ${{ "Library/" if win }}share/*
     requirements:
       build:
@@ -157,10 +157,10 @@ outputs:
       name: ${{ name }}
     requirements:
       run:
-        - ${{ pin_subpackage(libvisp, exact=true) }}
-        - ${{ pin_subpackage(visp-python, exact=true) }}
+        - ${{ pin_subpackage('libvisp', exact=true) }}
+        - ${{ pin_subpackage('visp-python', exact=true) }}
       run_exports:
-        - ${{ pin_subpackage(libvisp, max_pin='x.x') }}
+        - ${{ pin_subpackage('libvisp', upper_bound='x.x') }}
     test:
       - script:
         - cmake-package-check VISP
