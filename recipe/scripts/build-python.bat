@@ -21,7 +21,7 @@ cmake ^
     -DBUILD_TESTS=ON ^
     -DVISP_LIB_INSTALL_PATH:PATH="lib" ^
     -DVISP_BIN_INSTALL_PATH:PATH="bin" ^
-    -DVISP_CONFIG_INSTALL_PATH:PATH="lib\cmake"
+    -DVISP_CONFIG_INSTALL_PATH:PATH="lib\cmake\VISP"
 if errorlevel 1 exit 1
 
 :: build python bidings
