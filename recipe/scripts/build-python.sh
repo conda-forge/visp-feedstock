@@ -2,6 +2,13 @@
 
 set -ex
 
+echo "=================================="
+echo "=================================="
+which ${PREFIX}/bin/python
+which ${PYTHON}
+echo "=================================="
+echo "=================================="
+
 if [[ $target_platform == osx* ]] ; then
     # Dealing with modern C++ for Darwin in embedded catch library.
     # See https://conda-forge.org/docs/maintainer/knowledge_base.html#newer-c-features-with-old-sdk
