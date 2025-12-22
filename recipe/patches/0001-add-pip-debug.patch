@@ -1,14 +1,14 @@
-From d09de5d4c06d1783c024c7d4a690ef252ace4b18 Mon Sep 17 00:00:00 2001
+From d30b46ac5cb9addfea66a29b0f0a401f48311d24 Mon Sep 17 00:00:00 2001
 From: Olivier Roussel <olivier.roussel@inria.fr>
 Date: Fri, 19 Dec 2025 17:29:39 +0100
 Subject: [PATCH] add pip debug
 
 ---
- modules/python/CMakeLists.txt          | 3 +++
- modules/python/bindings/CMakeLists.txt | 3 +++
- modules/python/doc/CMakeLists.txt      | 3 +++
- modules/python/stubs/CMakeLists.txt    | 3 +++
- 4 files changed, 12 insertions(+)
+ modules/python/CMakeLists.txt          |  3 +++
+ modules/python/bindings/CMakeLists.txt |  3 +++
+ modules/python/doc/CMakeLists.txt      |  3 +++
+ modules/python/stubs/CMakeLists.txt    | 14 +++++++++++++-
+ 4 files changed, 22 insertions(+), 1 deletion(-)
 
 diff --git a/modules/python/CMakeLists.txt b/modules/python/CMakeLists.txt
 index fc92632e4..88f2a67d2 100644
@@ -59,20 +59,30 @@ index 8e18226e1..532682b23 100644
  	COMMAND ${PYTHON3_EXECUTABLE} -m sphinx
  		-b html
 diff --git a/modules/python/stubs/CMakeLists.txt b/modules/python/stubs/CMakeLists.txt
-index 40e06429b..1d6eaff9f 100644
+index 40e06429b..d8a1b72b7 100644
 --- a/modules/python/stubs/CMakeLists.txt
 +++ b/modules/python/stubs/CMakeLists.txt
-@@ -36,7 +36,10 @@
- configure_file("${CMAKE_CURRENT_SOURCE_DIR}/setup.py" "${CMAKE_CURRENT_BINARY_DIR}/setup.py" COPYONLY)
+@@ -37,7 +37,19 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/setup.py" "${CMAKE_CURRENT_BINARY_DI
  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/pyproject.toml.in" "${CMAKE_CURRENT_BINARY_DIR}/pyproject.toml" @ONLY)
  
-+message("========== Installing visp_python_bindings_stubs ==========")
  add_custom_target( visp_python_bindings_stubs
-+  COMMAND which ${PYTHON3_EXECUTABLE}
+-  COMMAND ${PYTHON3_EXECUTABLE} -m pip install  ${_pip_args} "${CMAKE_CURRENT_BINARY_DIR}"
++COMMAND echo "================  Installing visp_python_bindings_stubs =============="
++COMMAND which ${PYTHON3_EXECUTABLE}
++  COMMAND echo "== cat ${CMAKE_CURRENT_BINARY_DIR}/pyproject.toml file ==="
++  COMMAND cat ${CMAKE_CURRENT_BINARY_DIR}/pyproject.toml
++  COMMAND echo "== EOF ==="
++  COMMAND echo "== cat ${CMAKE_CURRENT_BINARY_DIR}/setup.py file ==="
++  COMMAND cat ${CMAKE_CURRENT_BINARY_DIR}/setup.py
++  COMMAND echo "== EOF ==="
++  COMMAND echo "== python -c import visp ==="
++  COMMAND ${PYTHON3_EXECUTABLE} -vvv -c "import visp"
++  COMMAND echo "== EOF ==="
 +  COMMAND ${PYTHON3_EXECUTABLE} -m pip list
-   COMMAND ${PYTHON3_EXECUTABLE} -m pip install  ${_pip_args} "${CMAKE_CURRENT_BINARY_DIR}"
++  COMMAND ${PYTHON3_EXECUTABLE} -m pip install -vvv ${_pip_args} "${CMAKE_CURRENT_BINARY_DIR}"
    COMMENT "Generating Python stubs..."
    DEPENDS visp_python_bindings_install
+ )
 -- 
 2.43.0
 

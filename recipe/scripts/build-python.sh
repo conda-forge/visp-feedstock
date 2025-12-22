@@ -36,7 +36,7 @@ cmake ${CMAKE_ARGS} .. \
       -DBUILD_TESTS=ON
 
 # build
-cmake --build . --parallel ${CPU_COUNT} --target visp_python_bindings
+cmake --build . --parallel 2 --target visp_python_bindings
 
 # Install python bindings
 cd modules/python/bindings
