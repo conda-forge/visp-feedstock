@@ -3,10 +3,6 @@ About libvisp-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/visp-feedstock/blob/main/LICENSE.txt)
 
-
-About libvisp
--------------
-
 Home: https://visp.inria.fr/
 
 Package license: GPL-2.0-only
@@ -15,24 +11,9 @@ Summary: A cross-platform library for prototyping and developing applications us
 
 Development: https://github.com/lagadic/visp
 
-Documentation: https://visp-doc.inria.fr/doxygen/visp-3.6.99/
+Documentation: https://visp-doc.inria.fr/doxygen/visp-3.7.0/
 
-C++ development libraries for ViSP.
-
-About visp-python
------------------
-
-Home: https://visp.inria.fr/
-
-Package license: GPL-2.0-only
-
-Summary: A cross-platform library for prototyping and developing applications using visual tracking and visual servoing technic.
-
-Development: https://github.com/lagadic/visp
-
-Documentation: https://visp-doc.inria.fr/doxygen/visp-3.6.99/
-
-Python bindings for ViSP.
+C++ development libraries and Python bidings for ViSP.
 
 Current build status
 ====================
@@ -100,6 +81,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libvisp-green.svg)](https://anaconda.org/conda-forge/libvisp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libvisp.svg)](https://anaconda.org/conda-forge/libvisp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libvisp.svg)](https://anaconda.org/conda-forge/libvisp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libvisp.svg)](https://anaconda.org/conda-forge/libvisp) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-visp-green.svg)](https://anaconda.org/conda-forge/visp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/visp.svg)](https://anaconda.org/conda-forge/visp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/visp.svg)](https://anaconda.org/conda-forge/visp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/visp.svg)](https://anaconda.org/conda-forge/visp) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-visp--python-green.svg)](https://anaconda.org/conda-forge/visp-python) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/visp-python.svg)](https://anaconda.org/conda-forge/visp-python) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/visp-python.svg)](https://anaconda.org/conda-forge/visp-python) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/visp-python.svg)](https://anaconda.org/conda-forge/visp-python) |
 
 Installing libvisp
@@ -112,16 +94,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `libvisp, visp-python` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `libvisp, visp, visp-python` can be installed with `conda`:
 
 ```
-conda install libvisp visp-python
+conda install libvisp visp visp-python
 ```
 
 or with `mamba`:
 
 ```
-mamba install libvisp visp-python
+mamba install libvisp visp visp-python
 ```
 
 It is possible to list all of the versions of `libvisp` available on your platform with `conda`:

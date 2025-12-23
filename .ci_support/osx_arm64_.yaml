@@ -34,7 +34,7 @@ libpng:
 - '1.6'
 librealsense:
 - '2.56'
-libxml2_devel:
+libxml2:
 - '2.14'
 llvm_openmp:
 - '19'
