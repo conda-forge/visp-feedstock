@@ -10,9 +10,6 @@ source:
   url: https://github.com/lagadic/visp/archive/refs/tags/v${{ version }}.tar.gz
   sha256: 997f247f3702c83f0a8a6dc2f72ff98cfe3a5dcbd82f7c9f01d37ccd3b8ea97a
   patches:
-    - if: not win
-      then:
-      - patches/0001-add-pip-debug.patch
     # Current version of this package do not enable AVX support. The Windows build uses
     # the Clang-cl compiler wich fails to build the embedded Simd library on AVX instructions
     # even when AVX flags are not on for some unknown reason, so we have to force
@@ -109,7 +106,7 @@ outputs:
             - python
             - cross-python_${{ target_platform }}
             - numpy
-            - python-librt >=0.6.2
+            - pybind11
         - ${{ compiler('cxx') }}
         - ${{ stdlib('c') }}
         - cmake

@@ -2,13 +2,6 @@
 
 set -ex
 
-echo "=================================="
-echo "=================================="
-which ${PREFIX}/bin/python
-which ${PYTHON}
-echo "=================================="
-echo "=================================="
-
 if [[ $target_platform == osx* ]] ; then
     # Dealing with modern C++ for Darwin in embedded catch library.
     # See https://conda-forge.org/docs/maintainer/knowledge_base.html#newer-c-features-with-old-sdk
@@ -36,12 +29,16 @@ cmake ${CMAKE_ARGS} .. \
       -DBUILD_TESTS=ON
 
 # build
-cmake --build . --parallel 2 --target visp_python_bindings
+cmake --build . --parallel ${CPU_COUNT} --target visp_python_bindings
 
 # Install python bindings
 cd modules/python/bindings
 ${PYTHON} -m pip install . -vv --no-deps --no-build-isolation --ignore-installed .
 
-# # and stubs
-cd ../stubs
-${PYTHON} -m pip install . -vv --no-deps --no-build-isolation --ignore-installed .
+# and stubs
+# Can't generate the stubs when cross-compiling since stubs generation needs 
+# to import the built binary which is built for target platform
+if [[ ${CONDA_BUILD_CROSS_COMPILATION} != 1 ]]; then
+  cd ../stubs
+  ${PYTHON} -m pip install . -vv --no-deps --no-build-isolation --ignore-installed .
+fi
