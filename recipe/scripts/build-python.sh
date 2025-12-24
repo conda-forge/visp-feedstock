@@ -38,7 +38,12 @@ ${PYTHON} -m pip install . -vv --no-deps --no-build-isolation --ignore-installed
 # and stubs
 # Can't generate the stubs when cross-compiling since stubs generation needs 
 # to import the built binary which is built for target platform
+echo "================================="
+echo "CONDA_BUILD_CROSS_COMPILATION = ${CONDA_BUILD_CROSS_COMPILATION}"
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" ]]; then
+  echo "========== Cross compiling if OFF, building stubs..."
   cd ../stubs
   ${PYTHON} -m pip install . -vv --no-deps --no-build-isolation --ignore-installed .
+else
+  echo "========== Cross compiling if ON, skipping stubs..."
 fi
