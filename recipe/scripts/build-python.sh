@@ -13,10 +13,11 @@ rm -rf build
 mkdir build
 cd build
 
-
+export BUILD_TESTS=1
 export GENERATE_PYTHON_STUBS=1
 if [[ $CONDA_BUILD_CROSS_COMPILATION == 1 ]]; then
   export GENERATE_PYTHON_STUBS=0
+  export BUILD_TESTS=0
 fi
 
 # We have to force CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH to False, otherwise
@@ -33,24 +34,7 @@ cmake ${CMAKE_ARGS} .. \
       -DPython3_EXECUTABLE:PATH=${PREFIX}/bin/python \
       -DBUILD_PYTHON_BINDINGS=ON \
       -DGENERATE_PYTHON_STUBS=${GENERATE_PYTHON_STUBS} \
-      -DBUILD_TESTS=ON
+      -DBUILD_TESTS=${BUILD_TESTS}
 
-# build
+# build & install (pip install is called by cmake)
 cmake --build . --parallel ${CPU_COUNT} --target visp_python_bindings
-
-# Install python bindings
-cd modules/python/bindings
-${PYTHON} -m pip install . -vv --no-deps --no-build-isolation --ignore-installed .
-
-# and stubs
-# Can't generate the stubs when cross-compiling since stubs generation needs 
-# to import the built binary which is built for target platform
-# echo "================================="
-# echo "CONDA_BUILD_CROSS_COMPILATION = ${CONDA_BUILD_CROSS_COMPILATION}"
-# if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" ]]; then
-#   echo "========== Cross compiling if OFF, building stubs..."
-#   cd ../stubs
-#   ${PYTHON} -m pip install . -vv --no-deps --no-build-isolation --ignore-installed .
-# else
-#   echo "========== Cross compiling if ON, skipping stubs..."
-# fi

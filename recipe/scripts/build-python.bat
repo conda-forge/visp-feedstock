@@ -19,6 +19,7 @@ cmake ^
     -DVISP_PYTHON_SKIP_DETECTION=OFF ^
     -DBUILD_PYTHON_BINDINGS=ON ^
     -DBUILD_TESTS=ON ^
+    -DGENERATE_PYTHON_STUBS=ON ^
     -DPython3_ROOT_DIR:PATH=%PREFIX% ^
     -DPython3_EXECUTABLE:PATH="%PREFIX%\python.exe" ^
     -DVISP_LIB_INSTALL_PATH:PATH="lib" ^
@@ -29,11 +30,3 @@ if errorlevel 1 exit 1
 :: build python bidings
 cmake --build . --parallel "%CPU_COUNT%" --target visp_python_bindings
 if errorlevel 1 exit 1
-
-:: Install python bindings
-cd modules\python\bindings
-%PYTHON% -m pip install . -vv --no-deps --no-build-isolation --ignore-installed .
-
-:: and stubs
-cd ..\stubs
-%PYTHON% -m pip install . -vv --no-deps --no-build-isolation --ignore-installed .

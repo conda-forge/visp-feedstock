@@ -9,7 +9,6 @@ set "CL=/MP"
 :: Hints OGRE to find its CMake module file
 set "OGRE_DIR=%LIBRARY_PREFIX%\cmake"
 
-
 ::Configure
 cmake ^
     %CMAKE_ARGS% ^
