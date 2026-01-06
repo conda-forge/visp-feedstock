@@ -1,5 +1,5 @@
-About visp-feedstock
-====================
+About libvisp-feedstock
+=======================
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/visp-feedstock/blob/main/LICENSE.txt)
 
@@ -11,7 +11,9 @@ Summary: A cross-platform library for prototyping and developing applications us
 
 Development: https://github.com/lagadic/visp
 
-Documentation: https://visp-doc.inria.fr/doxygen/visp-3.6.0/
+Documentation: https://visp-doc.inria.fr/doxygen/visp-3.7.0/
+
+C++ development libraries and Python bidings for ViSP.
 
 Current build status
 ====================
@@ -78,53 +80,55 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libvisp-green.svg)](https://anaconda.org/conda-forge/libvisp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libvisp.svg)](https://anaconda.org/conda-forge/libvisp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libvisp.svg)](https://anaconda.org/conda-forge/libvisp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libvisp.svg)](https://anaconda.org/conda-forge/libvisp) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-visp-green.svg)](https://anaconda.org/conda-forge/visp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/visp.svg)](https://anaconda.org/conda-forge/visp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/visp.svg)](https://anaconda.org/conda-forge/visp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/visp.svg)](https://anaconda.org/conda-forge/visp) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-visp--python-green.svg)](https://anaconda.org/conda-forge/visp-python) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/visp-python.svg)](https://anaconda.org/conda-forge/visp-python) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/visp-python.svg)](https://anaconda.org/conda-forge/visp-python) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/visp-python.svg)](https://anaconda.org/conda-forge/visp-python) |
 
-Installing visp
-===============
+Installing libvisp
+==================
 
-Installing `visp` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `libvisp` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `visp` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `libvisp, visp, visp-python` can be installed with `conda`:
 
 ```
-conda install visp
-```
-
-or with `mamba`:
-
-```
-mamba install visp
-```
-
-It is possible to list all of the versions of `visp` available on your platform with `conda`:
-
-```
-conda search visp --channel conda-forge
+conda install libvisp visp visp-python
 ```
 
 or with `mamba`:
 
 ```
-mamba search visp --channel conda-forge
+mamba install libvisp visp visp-python
+```
+
+It is possible to list all of the versions of `libvisp` available on your platform with `conda`:
+
+```
+conda search libvisp --channel conda-forge
+```
+
+or with `mamba`:
+
+```
+mamba search libvisp --channel conda-forge
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search visp --channel conda-forge
+mamba repoquery search libvisp --channel conda-forge
 
-# List packages depending on `visp`:
-mamba repoquery whoneeds visp --channel conda-forge
+# List packages depending on `libvisp`:
+mamba repoquery whoneeds libvisp --channel conda-forge
 
-# List dependencies of `visp`:
-mamba repoquery depends visp --channel conda-forge
+# List dependencies of `libvisp`:
+mamba repoquery depends libvisp --channel conda-forge
 ```
 
 
@@ -149,12 +153,12 @@ it is possible to build and upload installable packages to the
 [conda-forge](https://anaconda.org/conda-forge) [anaconda.org](https://anaconda.org/)
 channel for Linux, Windows and OSX respectively.
 
-To manage the continuous integration and simplify feedstock maintenance
+To manage the continuous integration and simplify feedstock maintenance,
 [conda-smithy](https://github.com/conda-forge/conda-smithy) has been developed.
 Using the ``conda-forge.yml`` within this repository, it is possible to re-render all of
 this feedstock's supporting files (e.g. the CI configuration files) with ``conda smithy rerender``.
 
-For more information please check the [conda-forge documentation](https://conda-forge.org/docs/).
+For more information, please check the [conda-forge documentation](https://conda-forge.org/docs/).
 
 Terminology
 ===========
@@ -169,19 +173,19 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating visp-feedstock
-=======================
+Updating libvisp-feedstock
+==========================
 
-If you would like to improve the visp recipe or build a new
+If you would like to improve the libvisp recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/visp-feedstock are
+Note that all branches in the conda-forge/libvisp-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
-on branches in forks and branches in the main repository should only be used to
+on branches in forks, and branches in the main repository should only be used to
 build distinct package versions.
 
 In order to produce a uniquely identifiable distribution:

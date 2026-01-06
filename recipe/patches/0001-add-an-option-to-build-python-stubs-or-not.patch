@@ -1,0 +1,57 @@
+From 54d2cdd9c9912b7b85e34544c9995b8059d232e3 Mon Sep 17 00:00:00 2001
+From: Olivier Roussel <oroussel@laas.fr>
+Date: Wed, 24 Dec 2025 15:16:34 +0100
+Subject: [PATCH] add an option to build python stubs (or not)
+
+---
+ CMakeLists.txt                |  1 +
+ modules/python/CMakeLists.txt | 20 ++++++++++++++------
+ 2 files changed, 15 insertions(+), 6 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 9ac70201d..4d148df5d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -497,6 +497,7 @@ VP_OPTION(INSTALL_ANDROID_EXAMPLES "" "" "Install Android examples"  ""
+ # Build python bindings as an option
+ VP_OPTION(BUILD_PYTHON_BINDINGS  "" "" "Build Python bindings" "" ON IF (PYTHON3INTERP_FOUND AND USE_PYBIND11 AND NOT CMAKE_NOT_OK_FOR_BINDINGS AND VISP_PYTHON_INTERPRETER_ALLOWED AND NOT PYTHON3_NOT_OK_FOR_BINDINGS AND NOT CXX_STANDARD_NOT_OK_FOR_BINDINGS) )
+ VP_OPTION(BUILD_PYTHON_BINDINGS_DOC  "" "" "Build the documentation for the Python bindings" "" ON IF BUILD_PYTHON_BINDINGS )
++VP_OPTION(GENERATE_PYTHON_STUBS  "" "" "Generate Python stubs" "" ON IF BUILD_PYTHON_BINDINGS )
+ 
+ 
+ # Build demos as an option.
+diff --git a/modules/python/CMakeLists.txt b/modules/python/CMakeLists.txt
+index fc92632e4..924e7e92c 100644
+--- a/modules/python/CMakeLists.txt
++++ b/modules/python/CMakeLists.txt
+@@ -109,13 +109,21 @@ set(VISP_PYTHON_BINDINGS_BUILD_PATH "${CMAKE_CURRENT_BINARY_DIR}/bindings")
+ add_subdirectory(bindings)
+ 
+ # Step 4: Copy stubs dir and install stubs for autocompletion
+-add_subdirectory(stubs)
++if(GENERATE_PYTHON_STUBS)
++  add_subdirectory(stubs)
++  # Global target: compile and install the Python bindings
++  add_custom_target(
++    visp_python_bindings
++    DEPENDS visp_python_bindings_stubs
++  )
++else()
++  add_custom_target(
++    visp_python_bindings
++    DEPENDS visp_python_bindings_install
++  )
++endif()
++
+ 
+-# Global target: compile and install the Python bindings
+-add_custom_target(
+-  visp_python_bindings
+-  DEPENDS visp_python_bindings_stubs
+-)
+ 
+ # Step 5: Build documentation
+ if(BUILD_PYTHON_BINDINGS_DOC)
+-- 
+2.43.0
+

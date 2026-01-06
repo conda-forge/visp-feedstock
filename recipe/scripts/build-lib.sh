@@ -22,6 +22,11 @@ fi
 mkdir build
 cd build
 
+export BUILD_TESTS=1
+if [[ $CONDA_BUILD_CROSS_COMPILATION == 1 ]]; then
+  export BUILD_TESTS=0
+fi
+
 # We have to force CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH to False, otherwise
 # it is set to some system paths such as the base conda environment, and 
 # some dependencies can be detected outside active conda environment is they are not
@@ -32,7 +37,7 @@ cmake ${CMAKE_ARGS} .. \
       -DCMAKE_VERBOSE_MAKEFILE=ON \
       -DCMAKE_BUILD_TYPE=Release \
       -DVISP_PYTHON_SKIP_DETECTION=ON \
-      -DBUILD_TESTS=ON
+      -DBUILD_TESTS=${BUILD_TESTS}
 
 # build
 cmake --build . --parallel ${CPU_COUNT}
@@ -41,6 +46,6 @@ cmake --build . --parallel ${CPU_COUNT}
 cmake --build . --parallel ${CPU_COUNT} --target install
 
 # test
-if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
+if [[ $CONDA_BUILD_CROSS_COMPILATION != 1 ]]; then
   ctest --progress --output-on-failure
 fi

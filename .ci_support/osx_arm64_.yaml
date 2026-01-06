@@ -34,12 +34,23 @@ libpng:
 - '1.6'
 librealsense:
 - '2.56'
-libxml2_devel:
+libxml2:
 - '2.14'
 llvm_openmp:
 - '19'
 macos_machine:
 - arm64-apple-darwin20.0.0
+numpy:
+- '2'
+pin_run_as_build:
+  python:
+    min_pin: x.x
+    max_pin: x.x
+python:
+- 3.10.* *_cpython
+- 3.11.* *_cpython
+- 3.12.* *_cpython
+- 3.13.* *_cp313
 target_platform:
 - osx-arm64
 zip_keys:
