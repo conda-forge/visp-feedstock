@@ -19,7 +19,7 @@ source:
       then: patches/0010-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch
 
 build:
-  number: 0
+  number: 1
 
 outputs:
   - package:
@@ -57,11 +57,7 @@ outputs:
         - liblapack
         - liblapacke
         - nlohmann_json
-        # panda3d is not available yet on cross-compiled platforms on conda-forge
-        # https://github.com/conda-forge/panda3d-feedstock/pull/60
-        - if: not (aarch64 or arm64)
-          then:
-            - panda3d
+        - panda3d
       run:
         - if: osx
           then: libcxx
@@ -130,11 +126,7 @@ outputs:
         - if: unix
           then:
             - xorg-xorgproto
-        # panda3d is not available yet on cross-compiled platforms on conda-forge
-        # https://github.com/conda-forge/panda3d-feedstock/pull/60            
-        - if: not (aarch64 or arm64)
-          then:
-            - panda3d            
+        - panda3d
         - ${{ pin_subpackage('libvisp', exact=true) }}
       run:
         - python
