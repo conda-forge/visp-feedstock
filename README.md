@@ -200,4 +200,5 @@ Feedstock Maintainers
 
 * [@fspindle](https://github.com/fspindle/)
 * [@olivier-roussel](https://github.com/olivier-roussel/)
+* [@rolalaro](https://github.com/rolalaro/)
 
