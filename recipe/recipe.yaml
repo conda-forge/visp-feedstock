@@ -167,5 +167,6 @@ about:
   
 extra:
   recipe-maintainers:
+    - rolalaro
     - olivier-roussel
     - fspindle
