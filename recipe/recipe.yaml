@@ -20,7 +20,7 @@ source:
       then: patches/0010-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch
 
 build:
-  number: 2
+  number: 3
 
 outputs:
   - package:
@@ -78,12 +78,12 @@ outputs:
               else:
                 - visp_core*
       - script:
-        - cmake-package-check VISP
+          - cmake-package-check VISP
         requirements:
           run:
             - cmake-package-check
             - ${{ compiler('c') }}
-            - ${{ compiler('cxx') }}            
+            - ${{ compiler('cxx') }}
       - script:
           - if: unix
             then: visp-config --version
@@ -95,7 +95,7 @@ outputs:
 
   - package:
       name: visp-python
-    build:  
+    build:
       script: scripts/build-python
     requirements:
       build:
@@ -147,7 +147,7 @@ outputs:
         - ${{ pin_subpackage('libvisp', upper_bound='x.x') }}
     tests:
       - script:
-        - cmake-package-check VISP
+          - cmake-package-check VISP
         requirements:
           run:
             - cmake-package-check
@@ -165,7 +165,7 @@ about:
   homepage: https://visp.inria.fr/
   repository: https://github.com/lagadic/visp
   documentation: https://visp-doc.inria.fr/doxygen/visp-${{ version }}/
-  
+
 extra:
   recipe-maintainers:
     - rolalaro
