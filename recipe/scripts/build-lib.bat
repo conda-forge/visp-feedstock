@@ -6,6 +6,8 @@ cd build
 :: Hints OGRE to find its CMake module file
 set "OGRE_DIR=%LIBRARY_PREFIX%\cmake"
 
+set "LAPACK_DIR=%LIBRARY_PREFIX%"
+
 ::Configure
 cmake ^
     %CMAKE_ARGS% ^
