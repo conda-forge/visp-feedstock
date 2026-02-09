@@ -159,8 +159,8 @@ outputs:
 
 about:
   summary: A cross-platform library for prototyping and developing applications using visual tracking and visual servoing technic.
-  description: C++ development libraries and Python bidings for ViSP.
-  license: GPL-2.0-only
+  description: C++ development libraries and Python bindings for ViSP.
+  license: GPL-2.0-or-later
   license_file: LICENSE.txt
   homepage: https://visp.inria.fr/
   repository: https://github.com/lagadic/visp
