@@ -20,7 +20,7 @@ source:
       then: patches/0010-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch
 
 build:
-  number: 4
+  number: 6
 
 outputs:
   - package:
@@ -34,9 +34,6 @@ outputs:
         - cmake
         - ninja
         - pkgconfig
-        - if: win
-          then:
-            - clang
       host:
         - if: unix
           then:
