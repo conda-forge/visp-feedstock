@@ -13,14 +13,14 @@ source:
     # https://github.com/lagadic/visp/pull/1890
     - patches/0001-add-an-option-to-build-python-stubs-or-not.patch
     # Current version of this package do not enable AVX support. The Windows build uses
-    # the Clang-cl compiler wich fails to build the embedded Simd library on AVX instructions
+    # the Clang-cl compiler which fails to build the embedded Simd library on AVX instructions
     # even when AVX flags are not on for some unknown reason, so we have to force
     # disabling AVX support at the Simd library level.
     - if: win
       then: patches/0010-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch
 
 build:
-  number: 4
+  number: 5
 
 outputs:
   - package:
