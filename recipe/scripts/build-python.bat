@@ -2,13 +2,8 @@ setlocal EnableDelayedExpansion
 
 :: We need to clean previous build as space is too low on runners
 rm -rf build
-cd build
 mkdir build
-
-set "CC=clang-cl.exe"
-set "CXX=clang-cl.exe"
-set "CL=/MP"
-
+cd build
 
 ::Configure
 cmake ^

@@ -3,9 +3,6 @@ setlocal EnableDelayedExpansion
 mkdir build
 cd build
 
-set "CC=clang-cl.exe"
-set "CXX=clang-cl.exe"
-set "CL=/MP"
 :: Hints OGRE to find its CMake module file
 set "OGRE_DIR=%LIBRARY_PREFIX%\cmake"
 
