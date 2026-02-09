@@ -9,11 +9,12 @@ set "OGRE_DIR=%LIBRARY_PREFIX%\cmake"
 set "LAPACK_DIR=%LIBRARY_PREFIX%"
 
 ::Configure
-cmake ^
+cmake --debug-find-pkg=Netlib ^
     %CMAKE_ARGS% ^
     %SRC_DIR% ^
     -G Ninja ^
     -DBUILD_TESTS=ON ^
+    -DUSE_BLAS/LAPACK=Netlib ^
     -DOGRE_DIR="%OGRE_DIR%" ^
     -DCMAKE_BUILD_TYPE:STRING=Release ^
     -DVISP_LIB_INSTALL_PATH:PATH="lib" ^
