@@ -5,7 +5,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/visp-feedstock/
 
 Home: https://visp.inria.fr/
 
-Package license: GPL-2.0-only
+Package license: GPL-2.0-or-later
 
 Summary: A cross-platform library for prototyping and developing applications using visual tracking and visual servoing technic.
 
@@ -13,7 +13,7 @@ Development: https://github.com/lagadic/visp
 
 Documentation: https://visp-doc.inria.fr/doxygen/visp-3.7.0/
 
-C++ development libraries and Python bidings for ViSP.
+C++ development libraries and Python bindings for ViSP.
 
 Current build status
 ====================
