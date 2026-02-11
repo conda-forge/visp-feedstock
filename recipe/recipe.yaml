@@ -13,7 +13,7 @@ source:
     # https://github.com/lagadic/visp/pull/1890
     - patches/0001-add-an-option-to-build-python-stubs-or-not.patch
     # Current version of this package do not enable AVX support. The Windows build uses
-    # the Clang-cl compiler wich fails to build the embedded Simd library on AVX instructions
+    # the Clang-cl compiler which fails to build the embedded Simd library on AVX instructions
     # even when AVX flags are not on for some unknown reason, so we have to force
     # disabling AVX support at the Simd library level.
     - if: win
@@ -154,8 +154,8 @@ outputs:
 
 about:
   summary: A cross-platform library for prototyping and developing applications using visual tracking and visual servoing technic.
-  description: C++ development libraries and Python bidings for ViSP.
-  license: GPL-2.0-only
+  description: C++ development libraries and Python bindings for ViSP.
+  license: GPL-2.0-or-later
   license_file: LICENSE.txt
   homepage: https://visp.inria.fr/
   repository: https://github.com/lagadic/visp
