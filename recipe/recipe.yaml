@@ -18,7 +18,6 @@ source:
     # disabling AVX support at the Simd library level.
     - if: win
       then: patches/0010-Disable-AVX-and-AVX2-for-Simd-embedded-lib.patch
-    - patches/0001-clang-cl-on-win-does-not-provide-unistd-header.patch
 
 build:
   number: 6
