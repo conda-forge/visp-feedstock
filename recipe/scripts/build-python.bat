@@ -2,7 +2,7 @@ setlocal EnableDelayedExpansion
 
 dir
 :: We need to clean previous build as space is too low on runners
-rm -rf build
+rmdir /s /q build
 dir
 mkdir build
 cd build
