@@ -1,0 +1,60 @@
+From da5c44f6901ac213211a34d6e06dc2859533fa72 Mon Sep 17 00:00:00 2001
+From: Olivier Roussel <olivier.roussel@inria.fr>
+Date: Mon, 9 Feb 2026 17:22:17 +0100
+Subject: [PATCH] do not look for f2c on windows
+
+---
+ cmake/FindNetlib.cmake | 19 +++----------------
+ 1 file changed, 3 insertions(+), 16 deletions(-)
+
+diff --git a/cmake/FindNetlib.cmake b/cmake/FindNetlib.cmake
+index 8f2737194..f1a083637 100644
+--- a/cmake/FindNetlib.cmake
++++ b/cmake/FindNetlib.cmake
+@@ -63,11 +63,6 @@ if(WIN32)
+     PATHS ${NETLIB_LIB_SEARCH_PATH}
+   )
+ 
+-  find_library(NETLIB_LIBRARY_F2C_RELEASE
+-    NAMES libf2c
+-    PATHS ${NETLIB_LIB_SEARCH_PATH}
+-  )
+-
+   find_library(NETLIB_LIBRARY_NETLIB_DEBUG
+     NAMES lapackd
+     PATHS ${NETLIB_LIB_SEARCH_PATH}
+@@ -78,21 +73,15 @@ if(WIN32)
+     PATHS ${NETLIB_LIB_SEARCH_PATH}
+   )
+ 
+-  find_library(NETLIB_LIBRARY_F2C_DEBUG
+-    NAMES libf2cd
+-    PATHS ${NETLIB_LIB_SEARCH_PATH}
+-  )
+-
+-  if((NETLIB_LIBRARY_NETLIB_RELEASE AND NETLIB_LIBRARY_BLAS_RELEASE AND NETLIB_LIBRARY_F2C_RELEASE))
++  if((NETLIB_LIBRARY_NETLIB_RELEASE AND NETLIB_LIBRARY_BLAS_RELEASE))
+     list(APPEND NETLIB_LIBRARIES optimized ${NETLIB_LIBRARY_NETLIB_RELEASE})
+     list(APPEND NETLIB_LIBRARIES optimized ${NETLIB_LIBRARY_BLAS_RELEASE})
+-    list(APPEND NETLIB_LIBRARIES optimized ${NETLIB_LIBRARY_F2C_RELEASE})
+     set(NETLIB_FOUND TRUE)
+   endif()
+-  if((NETLIB_LIBRARY_NETLIB_DEBUG AND NETLIB_LIBRARY_BLAS_DEBUG AND NETLIB_LIBRARY_F2C_DEBUG))
++
++  if((NETLIB_LIBRARY_NETLIB_DEBUG AND NETLIB_LIBRARY_BLAS_DEBUG))
+     list(APPEND NETLIB_LIBRARIES debug ${NETLIB_LIBRARY_NETLIB_DEBUG})
+     list(APPEND NETLIB_LIBRARIES debug ${NETLIB_LIBRARY_BLAS_DEBUG})
+-    list(APPEND NETLIB_LIBRARIES debug ${NETLIB_LIBRARY_F2C_DEBUG})
+     set(NETLIB_FOUND TRUE)
+   endif()
+ 
+@@ -140,6 +129,4 @@ mark_as_advanced(
+   NETLIB_LIBRARY_BLAS_RELEASE
+   NETLIB_LIBRARY_NETLIB_DEBUG
+   NETLIB_LIBRARY_BLAS_DEBUG
+-  NETLIB_LIBRARY_F2C_DEBUG
+-  NETLIB_LIBRARY_F2C_RELEASE
+ )
+-- 
+2.43.0
+
