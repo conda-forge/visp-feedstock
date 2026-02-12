@@ -12,6 +12,7 @@ source:
   patches:
     # https://github.com/lagadic/visp/pull/1890
     - patches/0001-add-an-option-to-build-python-stubs-or-not.patch
+    # https://github.com/lagadic/visp/pull/1905
     - patches/0001-do-not-look-for-f2c-on-windows.patch
 
 build:
