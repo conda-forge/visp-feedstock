@@ -9,7 +9,7 @@ set "OGRE_DIR=%LIBRARY_PREFIX%\cmake"
 set "LAPACK_DIR=%LIBRARY_PREFIX%"
 
 ::Configure
-cmake --debug-find-pkg=Netlib ^
+cmake ^
     %CMAKE_ARGS% ^
     %SRC_DIR% ^
     -G Ninja ^
