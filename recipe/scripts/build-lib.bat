@@ -3,11 +3,10 @@ setlocal EnableDelayedExpansion
 mkdir build
 cd build
 
-set "CC=clang-cl.exe"
-set "CXX=clang-cl.exe"
-set "CL=/MP"
 :: Hints OGRE to find its CMake module file
 set "OGRE_DIR=%LIBRARY_PREFIX%\cmake"
+
+set "LAPACK_DIR=%LIBRARY_PREFIX%"
 
 ::Configure
 cmake ^
@@ -15,6 +14,7 @@ cmake ^
     %SRC_DIR% ^
     -G Ninja ^
     -DBUILD_TESTS=ON ^
+    -DUSE_BLAS/LAPACK=Netlib ^
     -DOGRE_DIR="%OGRE_DIR%" ^
     -DCMAKE_BUILD_TYPE:STRING=Release ^
     -DVISP_LIB_INSTALL_PATH:PATH="lib" ^
