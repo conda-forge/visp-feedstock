@@ -16,7 +16,7 @@ source:
     - patches/0001-do-not-look-for-f2c-on-windows.patch
 
 build:
-  number: 6
+  number: 7
 
 outputs:
   - package:

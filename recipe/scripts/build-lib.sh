@@ -28,21 +28,22 @@ if [[ $CONDA_BUILD_CROSS_COMPILATION == 1 ]]; then
 fi
 
 # We have to force CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH to False, otherwise
-# it is set to some system paths such as the base conda environment, and 
-# some dependencies can be detected outside active conda environment is they are not
+# it is set to some system paths such as the base conda environment, and
+# some dependencies can be detected outside active conda environment if they are not
 # used for this recipe (such as nlohmann_json), as they are installed in the conda base env
 cmake ${CMAKE_ARGS} .. \
       -G Ninja \
       -DCMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH=FALSE \
       -DCMAKE_VERBOSE_MAKEFILE=ON \
       -DCMAKE_BUILD_TYPE=Release \
+      -DENABLE_VISP_NAMESPACE=ON \
       -DVISP_PYTHON_SKIP_DETECTION=ON \
       -DBUILD_TESTS=${BUILD_TESTS}
 
 # build
 cmake --build . --parallel ${CPU_COUNT}
 
-# install 
+# install
 cmake --build . --parallel ${CPU_COUNT} --target install
 
 # test
