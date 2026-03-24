@@ -16,7 +16,7 @@ source:
     - patches/0001-do-not-look-for-f2c-on-windows.patch
 
 build:
-  number: 6
+  number: 7
 
 outputs:
   - package:
@@ -52,6 +52,7 @@ outputs:
         - liblapacke
         - nlohmann_json
         - panda3d
+        - eigen-abi-devel
       run:
         - if: osx
           then: libcxx
@@ -118,6 +119,8 @@ outputs:
             - xorg-xorgproto
         - panda3d
         - ${{ pin_subpackage('libvisp', exact=true) }}
+        # we're consumming libvisp so we also need eigen-abi-devel here
+        - eigen-abi-devel
       run:
         - python
         - ${{ pin_subpackage('libvisp', exact=true) }}
