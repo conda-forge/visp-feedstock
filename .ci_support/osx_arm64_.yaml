@@ -31,7 +31,7 @@ libopencv:
 libpng:
 - '1.6'
 librealsense:
-- '2.56'
+- '2.57'
 libxml2:
 - '2.14'
 llvm_openmp:
