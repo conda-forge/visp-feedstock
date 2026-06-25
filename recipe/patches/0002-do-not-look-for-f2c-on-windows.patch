@@ -1,7 +1,7 @@
 From da5c44f6901ac213211a34d6e06dc2859533fa72 Mon Sep 17 00:00:00 2001
 From: Olivier Roussel <olivier.roussel@inria.fr>
 Date: Mon, 9 Feb 2026 17:22:17 +0100
-Subject: [PATCH] do not look for f2c on windows
+Subject: [PATCH 2/5] do not look for f2c on windows
 
 ---
  cmake/FindNetlib.cmake | 19 +++----------------

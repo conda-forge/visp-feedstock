@@ -1,0 +1,41 @@
+From 1ed263ff7b4f3b40ca3dc0f1aa129f7752748199 Mon Sep 17 00:00:00 2001
+From: Fabien Spindler <Fabien.Spindler@inria.fr>
+Date: Thu, 25 Jun 2026 09:23:34 +0200
+Subject: [PATCH 4/5] Introduce missing OpenCV 5.x modules
+
+---
+ modules/core/CMakeLists.txt        | 3 +++
+ modules/tracker/klt/CMakeLists.txt | 3 +++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/modules/core/CMakeLists.txt b/modules/core/CMakeLists.txt
+index b6ded0981..464e87ec9 100644
+--- a/modules/core/CMakeLists.txt
++++ b/modules/core/CMakeLists.txt
+@@ -80,6 +80,9 @@ if(USE_OPENCV)
+     if(OpenCV_VERSION AND OpenCV_VERSION VERSION_LESS 2.4.8)
+       list(APPEND OpenCV_REQUIRED_LIB_COMPONENTS "opencv_legacy")
+     endif()
++    if(OpenCV_VERSION AND OpenCV_VERSION VERSION_GREATER_EQUAL 5.0.0)
++      list(APPEND OpenCV_REQUIRED_LIB_COMPONENTS "opencv_geometry")
++    endif()
+ 
+     foreach(component_ ${OpenCV_REQUIRED_LIB_COMPONENTS})
+       string(TOUPPER "${component_}" component_UP)
+diff --git a/modules/tracker/klt/CMakeLists.txt b/modules/tracker/klt/CMakeLists.txt
+index 41021355c..99b35e505 100644
+--- a/modules/tracker/klt/CMakeLists.txt
++++ b/modules/tracker/klt/CMakeLists.txt
+@@ -70,6 +70,9 @@ if(USE_OPENCV)
+     # We import only required OpenCV libraries
+     list(APPEND OpenCV_REQUIRED_LIB_COMPONENTS "opencv_video")
+ 
++    if(OpenCV_VERSION AND OpenCV_VERSION VERSION_GREATER_EQUAL 5.0.0)
++      list(APPEND OpenCV_REQUIRED_LIB_COMPONENTS "opencv_features")
++    endif()
+     foreach(component_ ${OpenCV_REQUIRED_LIB_COMPONENTS})
+       string(TOUPPER "${component_}" component_UP)
+       if(${component_UP}_FOUND)
+-- 
+2.54.0
+

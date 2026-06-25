@@ -1,7 +1,7 @@
 From bbd155ee164f4e20a5bd699fee4d9a7d3b6c2fbe Mon Sep 17 00:00:00 2001
 From: Fabien Spindler <Fabien.Spindler@inria.fr>
 Date: Wed, 24 Jun 2026 16:52:12 +0200
-Subject: [PATCH] Fixed compilation pbs due to change of location of methods of
+Subject: [PATCH 3/5] Fixed compilation pbs due to change of location of methods of
  OpenCV in OpenCV 5.0
 
 ---
