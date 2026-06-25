@@ -27,11 +27,11 @@ liblapack:
 liblapacke:
 - 3.9.* *netlib
 libopencv:
-- 4.13.0
+- 5.0.0
 libpng:
 - '1.6'
 librealsense:
-- '2.56'
+- '2.57'
 libxml2:
 - '2.14'
 llvm_openmp:
