@@ -1,0 +1,93 @@
+From bbd155ee164f4e20a5bd699fee4d9a7d3b6c2fbe Mon Sep 17 00:00:00 2001
+From: Fabien Spindler <Fabien.Spindler@inria.fr>
+Date: Wed, 24 Jun 2026 16:52:12 +0200
+Subject: [PATCH 3/5] Fixed compilation pbs due to change of location of methods of
+ OpenCV in OpenCV 5.0
+
+---
+ modules/core/src/tools/geometry/vpPolygon.cpp         | 11 +++++++----
+ modules/tracker/klt/include/visp3/klt/vpKltOpencv.h   |  3 +++
+ .../tracker/tt/src/tools/vpTemplateTrackerZone.cpp    |  5 ++++-
+ 3 files changed, 14 insertions(+), 5 deletions(-)
+
+diff --git a/modules/core/src/tools/geometry/vpPolygon.cpp b/modules/core/src/tools/geometry/vpPolygon.cpp
+index 5896e4c77..2e3a82682 100644
+--- a/modules/core/src/tools/geometry/vpPolygon.cpp
++++ b/modules/core/src/tools/geometry/vpPolygon.cpp
+@@ -45,8 +45,11 @@
+ // Local helper
+ #if defined(VISP_HAVE_OPENCV) && defined(HAVE_OPENCV_IMGPROC)
+ 
++#if (VISP_HAVE_OPENCV_VERSION >= 0x050000)
++#include <opencv2/geometry/2d.hpp>
++#else
+ #include <opencv2/imgproc/imgproc.hpp>
+-
++#endif
+ 
+ /*!
+  * Compute convex hull corners.
+@@ -113,7 +116,7 @@ BEGIN_VISP_NAMESPACE
+ */
+ vpPolygon::vpPolygon()
+   : _corners(), _center(), _area(0.), _goodPoly(true), _bbox(), m_PnPolyConstants(), m_PnPolyMultiples()
+-{ }
++{}
+ 
+ /*!
+   Constructor which initialises the polygon thanks to the given corners.
+@@ -159,12 +162,12 @@ vpPolygon::vpPolygon(const std::list<vpImagePoint> &corners)
+ vpPolygon::vpPolygon(const vpPolygon &poly)
+   : _corners(poly._corners), _center(poly._center), _area(poly._area), _goodPoly(poly._goodPoly), _bbox(poly._bbox),
+   m_PnPolyConstants(poly.m_PnPolyConstants), m_PnPolyMultiples(poly.m_PnPolyMultiples)
+-{ }
++{}
+ 
+ /*!
+   Basic destructor
+ */
+-vpPolygon::~vpPolygon() { }
++vpPolygon::~vpPolygon() {}
+ 
+ /*!
+   Equal operator.
+diff --git a/modules/tracker/klt/include/visp3/klt/vpKltOpencv.h b/modules/tracker/klt/include/visp3/klt/vpKltOpencv.h
+index 2788bdeb3..61bd496b2 100644
+--- a/modules/tracker/klt/include/visp3/klt/vpKltOpencv.h
++++ b/modules/tracker/klt/include/visp3/klt/vpKltOpencv.h
+@@ -49,6 +49,9 @@
+ #include <visp3/core/vpColor.h>
+ #include <visp3/core/vpImage.h>
+ 
++#if (VISP_HAVE_OPENCV_VERSION >= 0x050000)
++#include <opencv2/features/features.hpp>
++#endif
+ #include <opencv2/highgui/highgui.hpp>
+ #include <opencv2/imgproc/imgproc.hpp>
+ #include <opencv2/video/tracking.hpp>
+diff --git a/modules/tracker/tt/src/tools/vpTemplateTrackerZone.cpp b/modules/tracker/tt/src/tools/vpTemplateTrackerZone.cpp
+index 6d1d7cef5..c405d7ab0 100644
+--- a/modules/tracker/tt/src/tools/vpTemplateTrackerZone.cpp
++++ b/modules/tracker/tt/src/tools/vpTemplateTrackerZone.cpp
+@@ -34,6 +34,9 @@
+ #include <visp3/core/vpConfig.h>
+ 
+ #if defined(VISP_HAVE_OPENCV) && defined(HAVE_OPENCV_IMGPROC)
++#if (VISP_HAVE_OPENCV_VERSION >= 0x050000)
++#include <opencv2/geometry/2d.hpp>
++#endif
+ #include <opencv2/imgproc/imgproc.hpp>
+ #endif
+ 
+@@ -43,7 +46,7 @@ BEGIN_VISP_NAMESPACE
+ /*!
+    Default constructor.
+  */
+-  vpTemplateTrackerZone::vpTemplateTrackerZone() : Zone(), min_x(-1), min_y(-1), max_x(-1), max_y(-1) { }
++  vpTemplateTrackerZone::vpTemplateTrackerZone() : Zone(), min_x(-1), min_y(-1), max_x(-1), max_y(-1) {}
+ 
+   /*!
+      Copy constructor.
+-- 
+2.54.0
+
