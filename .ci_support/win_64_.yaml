@@ -6,6 +6,8 @@ channel_targets:
 - conda-forge main
 cxx_compiler:
 - vs2022
+eigen_abi_devel:
+- 5.0.1
 libblas:
 - 3.9.* *netlib
 libcblas:
@@ -17,7 +19,7 @@ liblapack:
 liblapacke:
 - 3.9.* *netlib
 libopencv:
-- 4.13.0
+- 5.0.0
 libpng:
 - '1.6'
 numpy:

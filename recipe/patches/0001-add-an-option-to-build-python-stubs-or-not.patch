@@ -1,7 +1,7 @@
 From 54d2cdd9c9912b7b85e34544c9995b8059d232e3 Mon Sep 17 00:00:00 2001
 From: Olivier Roussel <oroussel@laas.fr>
 Date: Wed, 24 Dec 2025 15:16:34 +0100
-Subject: [PATCH] add an option to build python stubs (or not)
+Subject: [PATCH 1/5] add an option to build python stubs (or not)
 
 ---
  CMakeLists.txt                |  1 +

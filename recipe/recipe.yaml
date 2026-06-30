@@ -13,10 +13,16 @@ source:
     # https://github.com/lagadic/visp/pull/1890
     - patches/0001-add-an-option-to-build-python-stubs-or-not.patch
     # https://github.com/lagadic/visp/pull/1905
-    - patches/0001-do-not-look-for-f2c-on-windows.patch
+    - patches/0002-do-not-look-for-f2c-on-windows.patch
+    # https://github.com/lagadic/visp/commit/0c170eae
+    - patches/0003-Fixed-compilation-pbs-due-to-change-of-location-of-m.patch
+    # https://github.com/lagadic/visp/commit/d57def89
+    - patches/0004-Introduce-missing-OpenCV-5.x-modules.patch
+    # https://github.com/lagadic/visp/commit/1ac2a038
+    - patches/0005-Fix-compat-with-OpenCV-5.x-replacing-3d-module-by-ge.patch
 
 build:
-  number: 7
+  number: 10
 
 outputs:
   - package:
@@ -52,12 +58,13 @@ outputs:
         - liblapacke
         - nlohmann_json
         - panda3d
+        - eigen-abi-devel
       run:
         - if: osx
           then: libcxx
         - eigen
       run_exports:
-        - ${{ pin_subpackage('libvisp', upper_bound='x.x') }}
+        - ${{ pin_subpackage('libvisp', upper_bound='x.x.x') }}
     tests:
       - package_contents:
           include:
@@ -118,6 +125,8 @@ outputs:
             - xorg-xorgproto
         - panda3d
         - ${{ pin_subpackage('libvisp', exact=true) }}
+        # we're consumming libvisp so we also need eigen-abi-devel here
+        - eigen-abi-devel
       run:
         - python
         - ${{ pin_subpackage('libvisp', exact=true) }}
