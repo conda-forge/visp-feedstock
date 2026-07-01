@@ -21,7 +21,7 @@ if [[ $CONDA_BUILD_CROSS_COMPILATION == 1 ]]; then
 fi
 
 # We have to force CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH to False, otherwise
-# it is set to some system paths such as the base conda environment, and 
+# it is set to some system paths such as the base conda environment, and
 # some dependencies can be detected outside active conda environment is they are not
 # used for this recipe (such as nlohmann_json), as they are installed in the conda base env
 cmake ${CMAKE_ARGS} .. \
@@ -30,6 +30,7 @@ cmake ${CMAKE_ARGS} .. \
       -DCMAKE_VERBOSE_MAKEFILE=ON \
       -DCMAKE_BUILD_TYPE=Release \
       -DVISP_PYTHON_SKIP_DETECTION=OFF \
+      -DENABLE_VISP_NAMESPACE=ON \
       -DPython3_ROOT_DIR:PATH=${PREFIX} \
       -DPython3_EXECUTABLE:PATH=${PREFIX}/bin/python \
       -DBUILD_PYTHON_BINDINGS=ON \

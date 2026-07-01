@@ -1,0 +1,64 @@
+From 10abd4f2a8a875886e873aef363ef63e58041f2f Mon Sep 17 00:00:00 2001
+From: Fabien Spindler <fabien.spindler@inria.fr>
+Date: Wed, 20 May 2026 09:09:18 +0200
+Subject: [PATCH 9/10] =?UTF-8?q?Fix=20warning:=20declaration=20of=20?=
+ =?UTF-8?q?=E2=80=98fJe=E2=80=99=20shadows=20a=20member=20of=20=E2=80=98vp?=
+ =?UTF-8?q?RobotPololuPtu=E2=80=99=20[-Wshadow]?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+visp/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp: In member function ‘void vpRobotPololuPtu::get_fJe(const vpColVector&, vpMatrix&) const’:
+visp/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp:99:64: warning: declaration of ‘fJe’ shadows a member of ‘vpRobotPololuPtu’ [-Wshadow]
+   99 | void vpRobotPololuPtu::get_fJe(const vpColVector &q, vpMatrix &fJe) const
+      |                                                      ~~~~~~~~~~^~~
+visp/modules/robot/include/visp3/robot/vpRobot.h:107:12: note: shadowed declaration is here
+  107 |   vpMatrix fJe;
+      |            ^~~
+---
+ .../real-robot/pololu-maestro/vpRobotPololuPtu.cpp | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp b/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp
+index f4b039010..1b26a929b 100644
+--- a/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp
++++ b/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp
+@@ -89,29 +89,29 @@ void vpRobotPololuPtu::get_eJe(const vpColVector &q, vpMatrix &eJe_) const
+   double s2 = sin(q[1]);
+   double c2 = cos(q[1]);
+
+-  eJe = 0;
++  eJe_ = 0;
+
+   eJe_[3][0] = -c2;
+   eJe_[4][1] = -1;
+   eJe_[5][0] = s2;
+ }
+
+-void vpRobotPololuPtu::get_fJe(const vpColVector &q, vpMatrix &fJe) const
++void vpRobotPololuPtu::get_fJe(const vpColVector &q, vpMatrix &fJe_) const
+ {
+   if (q.size() != static_cast<unsigned int>(nDof)) {
+     throw(vpException(vpException::dimensionError, "Bad dimension for Pololu PTU joint position vector"));
+   }
+
+-  fJe.resize(6, nDof);
++  fJe_.resize(6, nDof);
+
+   double s1 = sin(q[0]);
+   double c1 = cos(q[0]);
+
+-  fJe = 0;
++  fJe_ = 0;
+
+-  fJe[3][1] = s1;
+-  fJe[4][1] = -c1;
+-  fJe[5][0] = 1;
++  fJe_[3][1] = s1;
++  fJe_[4][1] = -c1;
++  fJe_[5][0] = 1;
+ }
+
+ float vpRobotPololuPtu::getAngularVelocityResolution() const
+--
+2.43.0

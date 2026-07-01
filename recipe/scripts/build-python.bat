@@ -20,6 +20,7 @@ cmake ^
     -DPython3_EXECUTABLE:PATH="%PREFIX%\python.exe" ^
     -DVISP_LIB_INSTALL_PATH:PATH="lib" ^
     -DVISP_BIN_INSTALL_PATH:PATH="bin" ^
+    -DENABLE_VISP_NAMESPACE=ON ^
     -DVISP_CONFIG_INSTALL_PATH:PATH="lib\cmake\VISP"
 if errorlevel 1 exit 1
 

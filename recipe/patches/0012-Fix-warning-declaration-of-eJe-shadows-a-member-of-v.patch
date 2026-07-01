@@ -1,0 +1,52 @@
+From 3eaca66d7d60ac39947f8c5a57e9b4146c509963 Mon Sep 17 00:00:00 2001
+From: Fabien Spindler <fabien.spindler@inria.fr>
+Date: Wed, 20 May 2026 09:08:28 +0200
+Subject: [PATCH 8/10] =?UTF-8?q?Fix=20warning:=20declaration=20of=20?=
+ =?UTF-8?q?=E2=80=98eJe=E2=80=99=20shadows=20a=20member=20of=20=E2=80=98vp?=
+ =?UTF-8?q?RobotPololuPtu=E2=80=99=20[-Wshadow]?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+visp/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp: In member function ‘void vpRobotPololuPtu::get_eJe(const vpColVector&, vpMatrix&) const’:
+visp/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp:81:64: warning: declaration of ‘eJe’ shadows a member of ‘vpRobotPololuPtu’ [-Wshadow]
+   81 | void vpRobotPololuPtu::get_eJe(const vpColVector &q, vpMatrix &eJe) const
+      |                                                      ~~~~~~~~~~^~~
+visp/modules/robot/include/visp3/robot/vpRobot.h:103:12: note: shadowed declaration is here
+  103 |   vpMatrix eJe;
+      |            ^~~
+---
+ .../src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp b/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp
+index e95666127..f4b039010 100644
+--- a/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp
++++ b/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp
+@@ -78,9 +78,9 @@ void vpRobotPololuPtu::get_fJe(vpMatrix &fJe_)
+   get_fJe(q, fJe_);
+ }
+
+-void vpRobotPololuPtu::get_eJe(const vpColVector &q, vpMatrix &eJe) const
++void vpRobotPololuPtu::get_eJe(const vpColVector &q, vpMatrix &eJe_) const
+ {
+-  eJe.resize(6, nDof);
++  eJe_.resize(6, nDof);
+
+   if (q.size() != static_cast<unsigned int>(nDof)) {
+     throw(vpException(vpException::dimensionError, "Bad dimension for Pololu PTU joint position vector"));
+@@ -91,9 +91,9 @@ void vpRobotPololuPtu::get_eJe(const vpColVector &q, vpMatrix &eJe) const
+
+   eJe = 0;
+
+-  eJe[3][0] = -c2;
+-  eJe[4][1] = -1;
+-  eJe[5][0] = s2;
++  eJe_[3][0] = -c2;
++  eJe_[4][1] = -1;
++  eJe_[5][0] = s2;
+ }
+
+ void vpRobotPololuPtu::get_fJe(const vpColVector &q, vpMatrix &fJe) const
+--
+2.43.0

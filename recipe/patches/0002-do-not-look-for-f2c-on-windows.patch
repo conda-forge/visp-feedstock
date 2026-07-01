@@ -1,7 +1,7 @@
 From da5c44f6901ac213211a34d6e06dc2859533fa72 Mon Sep 17 00:00:00 2001
 From: Olivier Roussel <olivier.roussel@inria.fr>
 Date: Mon, 9 Feb 2026 17:22:17 +0100
-Subject: [PATCH 2/5] do not look for f2c on windows
+Subject: [PATCH 2/10] do not look for f2c on windows
 
 ---
  cmake/FindNetlib.cmake | 19 +++----------------
@@ -14,7 +14,7 @@ index 8f2737194..f1a083637 100644
 @@ -63,11 +63,6 @@ if(WIN32)
      PATHS ${NETLIB_LIB_SEARCH_PATH}
    )
- 
+
 -  find_library(NETLIB_LIBRARY_F2C_RELEASE
 -    NAMES libf2c
 -    PATHS ${NETLIB_LIB_SEARCH_PATH}
@@ -26,7 +26,7 @@ index 8f2737194..f1a083637 100644
 @@ -78,21 +73,15 @@ if(WIN32)
      PATHS ${NETLIB_LIB_SEARCH_PATH}
    )
- 
+
 -  find_library(NETLIB_LIBRARY_F2C_DEBUG
 -    NAMES libf2cd
 -    PATHS ${NETLIB_LIB_SEARCH_PATH}
@@ -47,7 +47,7 @@ index 8f2737194..f1a083637 100644
 -    list(APPEND NETLIB_LIBRARIES debug ${NETLIB_LIBRARY_F2C_DEBUG})
      set(NETLIB_FOUND TRUE)
    endif()
- 
+
 @@ -140,6 +129,4 @@ mark_as_advanced(
    NETLIB_LIBRARY_BLAS_RELEASE
    NETLIB_LIBRARY_NETLIB_DEBUG
@@ -55,6 +55,5 @@ index 8f2737194..f1a083637 100644
 -  NETLIB_LIBRARY_F2C_DEBUG
 -  NETLIB_LIBRARY_F2C_RELEASE
  )
--- 
+--
 2.43.0
-
