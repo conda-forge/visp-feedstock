@@ -1,0 +1,58 @@
+From fc476897754d40c99864b6dd0b397b356d7338f0 Mon Sep 17 00:00:00 2001
+From: Fabien Spindler <fabien.spindler@inria.fr>
+Date: Wed, 20 May 2026 09:06:30 +0200
+Subject: [PATCH 6/10] =?UTF-8?q?Fix=20warning:=20declaration=20of=20?=
+ =?UTF-8?q?=E2=80=98eJe=E2=80=99=20shadows=20a=20member=20of=20=E2=80=98vp?=
+ =?UTF-8?q?RobotPololuPtu=E2=80=99=20[-Wshadow]?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+visp/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp: In member function ‘virtual void vpRobotPololuPtu::get_eJe(vpMatrix&)’:
+visp/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp:65:42: warning: declaration of ‘eJe’ shadows a member of ‘vpRobotPololuPtu’ [-Wshadow]
+   65 | void vpRobotPololuPtu::get_eJe(vpMatrix &eJe)
+      |                                ~~~~~~~~~~^~~
+In file included from visp/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp:39:
+visp/modules/robot/include/visp3/robot/vpRobot.h:103:12: note: shadowed declaration is here
+  103 |   vpMatrix eJe;
+      |            ^~~
+---
+ .../src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp    | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp b/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp
+index a2d366b0f..bf1597677 100644
+--- a/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp
++++ b/modules/robot/src/real-robot/pololu-maestro/vpRobotPololuPtu.cpp
+@@ -1,6 +1,6 @@
+ /*
+  * ViSP, open source Visual Servoing Platform software.
+- * Copyright (C) 2005 - 2025 by Inria. All rights reserved.
++ * Copyright (C) 2005 - 2026 by Inria. All rights reserved.
+  *
+  * This software is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+@@ -62,12 +62,12 @@ vpRobotPololuPtu::~vpRobotPololuPtu()
+   m_tilt.stopVelocityCmd();
+ }
+
+-void vpRobotPololuPtu::get_eJe(vpMatrix &eJe)
++void vpRobotPololuPtu::get_eJe(vpMatrix &eJe_)
+ {
+   vpColVector q(nDof);
+   getPosition(vpRobot::JOINT_STATE, q);
+
+-  get_eJe(q, eJe);
++  get_eJe(q, eJe_);
+ }
+
+ void vpRobotPololuPtu::get_fJe(vpMatrix &fJe)
+@@ -285,5 +285,5 @@ void vpRobotPololuPtu::getPosition(const vpRobot::vpControlFrameType frame, vpCo
+ END_VISP_NAMESPACE
+ #elif !defined(VISP_BUILD_SHARED_LIBS)
+ // Work around to avoid warning: libvisp_robot.a(vpRobotPololuPtu.cpp.o) has no symbols
+-void dummy_vpRobotPololuPtu() { }
++void dummy_vpRobotPololuPtu() {}
+ #endif
+--
+2.43.0

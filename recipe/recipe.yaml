@@ -20,6 +20,11 @@ source:
     - patches/0004-Introduce-missing-OpenCV-5.x-modules.patch
     # https://github.com/lagadic/visp/commit/1ac2a038
     - patches/0005-Fix-compat-with-OpenCV-5.x-replacing-3d-module-by-ge.patch
+    # patches vpRobotPololulu
+    - patches/0010-Fix-warning-declaration-of-eJe-shadows-a-member-of-v.patch
+    - patches/0011-Fix-warning-declaration-of-fJe-shadows-a-member-of-v.patch
+    - patches/0012-Fix-warning-declaration-of-eJe-shadows-a-member-of-v.patch
+    - patches/0013-Fix-warning-declaration-of-eJe-shadows-a-member-of-v.patch
     # Fixes to enable ViSP namespace
     - patches/0020-fix-enable-namespace.patch
 
