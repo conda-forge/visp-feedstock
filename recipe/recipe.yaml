@@ -29,7 +29,7 @@ source:
     - patches/0020-fix-enable-namespace.patch
 
 build:
-  number: 10
+  number: 11
 
 outputs:
   - package:
