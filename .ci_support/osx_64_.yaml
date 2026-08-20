@@ -31,7 +31,7 @@ libopencv:
 libpng:
 - '1.6'
 librealsense:
-- '2.57'
+- '2.58'
 libxml2:
 - '2.14'
 llvm_openmp:
@@ -46,9 +46,5 @@ pin_run_as_build:
     max_pin: x.x
 python:
 - 3.10.* *_cpython
-- 3.11.* *_cpython
-- 3.12.* *_cpython
-- 3.13.* *_cp313
-- 3.14.* *_cp314
 target_platform:
 - osx-64
