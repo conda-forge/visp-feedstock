@@ -1,3 +1,10 @@
+From 79a8c54c49e49e5e50033426c6e0af0109874805 Mon Sep 17 00:00:00 2001
+From: Romain LAGNEAU <oroussel@laas.fr>
+Date: Wed, 1 Jul 2026 08:36:34 +0100
+Subject: [PATCH 10/10] Fixes related to ViSP namespace and signdness conversion
+
+---
+
 diff --git a/.github/workflows/coverage-pixi.yml b/.github/workflows/coverage-pixi.yml
 index 810dfea..4c1e657 100644
 --- a/.github/workflows/coverage-pixi.yml
