@@ -11,7 +11,7 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '21'
+- '22'
 eigen_abi_devel:
 - 5.0.1
 libblas:
@@ -33,7 +33,7 @@ librealsense:
 libxml2:
 - '2.15'
 llvm_openmp:
-- '21'
+- '22'
 macos_machine:
 - arm64-apple-darwin20.0.0
 numpy:
@@ -47,5 +47,6 @@ python:
 - 3.12.* *_cpython
 - 3.13.* *_cp313
 - 3.14.* *_cp314
+- 3.15.* *_cp315
 target_platform:
 - osx-arm64
